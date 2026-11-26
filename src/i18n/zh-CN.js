@@ -102,4 +102,11 @@ export default {
     photoCredit: '照片：韩国观光公社',
     ranges: { today: '今天', week: '本周', month: '本月' },
   },
+  themes: {
+    title: '按主题选择',
+    more: '更多',
+    back: '返回',
+    empty: '没有符合的地点',
+    note: '主题根据旅游信息标签自动分类',
+  },
 };

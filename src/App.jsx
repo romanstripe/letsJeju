@@ -5,6 +5,7 @@ import LanguageScreen from './screens/LanguageScreen.jsx';
 import HomeScreen from './screens/HomeScreen.jsx';
 import MapScreen from './screens/MapScreen.jsx';
 import EventsScreen from './screens/EventsScreen.jsx';
+import ThemeScreen from './screens/ThemeScreen.jsx';
 import EmptyScreen from './screens/EmptyScreen.jsx';
 import TopBar from './components/TopBar.jsx';
 import BottomNav from './components/BottomNav.jsx';
@@ -14,7 +15,7 @@ export default function App() {
     const saved = load('lang');
     return LANGS.includes(saved) ? saved : null;
   });
-  const [theme, setTheme] = useState(() => (load('theme') === 'light' ? 'light' : 'dark'));
+  const [theme, setTheme] = useState(() => (load('themeChoice') === 'dark' ? 'dark' : 'light'));
   const [tab, setTab] = useState('home');
   const [choosing, setChoosing] = useState(false);
 
@@ -29,7 +30,6 @@ export default function App() {
   // 지도 마커가 CSS 색을 읽기 전에 적용되어야 해서 useLayoutEffect
   useLayoutEffect(() => {
     document.documentElement.dataset.theme = theme;
-    save('theme', theme);
   }, [theme]);
 
   function chooseLanguage(code) {
@@ -49,17 +49,24 @@ export default function App() {
 
   const headerProps = {
     t,
-    onToggleTheme: () => setTheme(theme === 'dark' ? 'light' : 'dark'),
+    // 직접 누른 경우에만 저장한다. 안 눌렀으면 기본값(라이트)
+    onToggleTheme: () => {
+      const next = theme === 'dark' ? 'light' : 'dark';
+      setTheme(next);
+      save('themeChoice', next);
+    },
     onChangeLanguage: () => setChoosing(true),
   };
 
   return (
     <div className="stage">
-      <div className={tab === 'map' || tab === 'events' ? 'shell shell-tall' : 'shell'}>
+      <div className={['map', 'events', 'theme'].includes(tab) ? 'shell shell-tall' : 'shell'}>
         {tab === 'map' ? (
           <MapScreen {...headerProps} theme={theme} />
         ) : tab === 'events' ? (
           <EventsScreen lang={lang} {...headerProps} />
+        ) : tab === 'theme' ? (
+          <ThemeScreen {...headerProps} />
         ) : (
           <>
             <TopBar lang={lang} {...headerProps} />

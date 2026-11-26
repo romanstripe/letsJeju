@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { loadKakao } from '../map/kakao.js';
+import { DARK_MAP_FILTER } from '../config.js';
 
 // 처음 화면에 제주 본섬(과 우도, 마라도)이 모두 들어오게
 const JEJU = { south: 33.11, west: 126.14, north: 33.57, east: 126.98 };
@@ -102,7 +103,7 @@ export default function MapView({ places, selected, onSelect, theme, errorText }
 
   return (
     <>
-      <div ref={container} className="map-canvas" />
+      <div ref={container} className="map-canvas" data-dark-filter={DARK_MAP_FILTER} />
       {failed && <p className="map-message">{errorText}</p>}
     </>
   );

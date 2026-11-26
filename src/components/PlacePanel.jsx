@@ -17,7 +17,7 @@ function Photo({ place, fallback }) {
   return <img className="panel-photo" src={place.photo} alt={place.title} onError={() => setBroken(true)} />;
 }
 
-export default function PlacePanel({ place, t }) {
+export default function PlacePanel({ place, t, onClose }) {
   const m = t.map;
 
   if (!place) {
@@ -32,6 +32,11 @@ export default function PlacePanel({ place, t }) {
     <aside className="card panel">
       <Photo key={place.id} place={place} fallback={m.noPhoto} />
       <div className="panel-body" key={`body-${place.id}`}>
+        {onClose && (
+          <button type="button" className="text-button panel-close" onClick={onClose}>
+            {t.events.close}
+          </button>
+        )}
         <p className="panel-meta">
           {m.categories[place.category]}
           {place.region.length > 0 && <span lang="ko"> · {place.region.join(' · ')}</span>}

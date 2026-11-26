@@ -108,4 +108,11 @@ export default {
     photoCredit: 'Photo: Korea Tourism Organization',
     ranges: { today: 'Today', week: 'This week', month: 'This month' },
   },
+  themes: {
+    title: 'Pick by theme',
+    more: 'More',
+    back: 'Back',
+    empty: 'No places found',
+    note: 'Themes are sorted automatically from tourism data tags',
+  },
 };

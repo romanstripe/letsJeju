@@ -102,4 +102,11 @@ export default {
     photoCredit: '사진: 한국관광공사',
     ranges: { today: '오늘', week: '이번 주', month: '이번 달' },
   },
+  themes: {
+    title: '테마로 고르기',
+    more: '더 보기',
+    back: '이전',
+    empty: '해당하는 곳이 없어요',
+    note: '테마는 관광 정보의 태그로 자동 분류돼요',
+  },
 };

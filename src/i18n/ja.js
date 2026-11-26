@@ -102,4 +102,11 @@ export default {
     photoCredit: '写真：韓国観光公社',
     ranges: { today: '今日', week: '今週', month: '今月' },
   },
+  themes: {
+    title: 'テーマで選ぶ',
+    more: 'もっと見る',
+    back: '戻る',
+    empty: '該当する場所がありません',
+    note: 'テーマは観光情報のタグで自動分類しています',
+  },
 };

@@ -102,4 +102,11 @@ export default {
     photoCredit: '照片：韓國觀光公社',
     ranges: { today: '今天', week: '本週', month: '本月' },
   },
+  themes: {
+    title: '依主題選擇',
+    more: '更多',
+    back: '返回',
+    empty: '沒有符合的地點',
+    note: '主題依旅遊資訊標籤自動分類',
+  },
 };

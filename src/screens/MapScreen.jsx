@@ -26,7 +26,7 @@ export default function MapScreen({ t, theme, onToggleTheme, onChangeLanguage })
   }, []);
 
   const shown = useMemo(
-    () => (places ?? []).filter((p) => filter === 'all' || p.category === filter),
+    () => (places ?? []).filter((p) => p.lat && p.lng && (filter === 'all' || p.category === filter)),
     [places, filter],
   );
 
