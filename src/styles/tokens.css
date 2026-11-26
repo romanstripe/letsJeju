@@ -16,6 +16,9 @@
   /* QR 은 밝기와 상관없이 흰 바탕에 검은 글자 */
   --qr-bg: #ffffff;
   --qr-ink: #121517;
+  /* 지도 핀 */
+  --pin-fill: var(--text);
+  --pin-ring: var(--bg);
 }
 
 :root[data-theme='light'] {
@@ -31,4 +34,6 @@
   --accent: #0a6ead;
   --teal: #0e7c86;
   --on-accent: #ffffff;
+  --pin-fill: var(--card);
+  --pin-ring: var(--text);
 }

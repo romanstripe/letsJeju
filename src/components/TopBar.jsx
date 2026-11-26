@@ -1,5 +1,6 @@
 import Clock from './Clock.jsx';
 import Icon from './Icon.jsx';
+import HeaderButtons from './HeaderButtons.jsx';
 
 export default function TopBar({ lang, t, onToggleTheme, onChangeLanguage }) {
   return (
@@ -14,23 +15,7 @@ export default function TopBar({ lang, t, onToggleTheme, onChangeLanguage }) {
           <Icon name="weather" />
           {t.header.weather}
         </span>
-        <button
-          type="button"
-          className="round-button"
-          aria-label={t.header.toggleTheme}
-          onClick={onToggleTheme}
-        >
-          <Icon name="brightness" size={20} />
-        </button>
-        <button
-          type="button"
-          className="pill-button"
-          aria-label={`${t.header.changeLanguage}: ${t.nativeName}`}
-          onClick={onChangeLanguage}
-        >
-          <Icon name="globe" size={20} />
-          {t.nativeName}
-        </button>
+        <HeaderButtons t={t} onToggleTheme={onToggleTheme} onChangeLanguage={onChangeLanguage} />
       </div>
     </header>
   );

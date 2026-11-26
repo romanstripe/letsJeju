@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { DEFAULT_LANG, LANGS, messages } from './i18n/index.js';
 import { load, save } from './storage.js';
 import LanguageScreen from './screens/LanguageScreen.jsx';
 import HomeScreen from './screens/HomeScreen.jsx';
+import MapScreen from './screens/MapScreen.jsx';
 import EmptyScreen from './screens/EmptyScreen.jsx';
 import TopBar from './components/TopBar.jsx';
 import BottomNav from './components/BottomNav.jsx';
@@ -24,7 +25,8 @@ export default function App() {
     document.title = t.app.name;
   }, [current, t]);
 
-  useEffect(() => {
+  // 지도 마커가 CSS 색을 읽기 전에 적용되어야 해서 useLayoutEffect
+  useLayoutEffect(() => {
     document.documentElement.dataset.theme = theme;
     save('theme', theme);
   }, [theme]);
@@ -44,22 +46,29 @@ export default function App() {
     );
   }
 
+  const headerProps = {
+    t,
+    onToggleTheme: () => setTheme(theme === 'dark' ? 'light' : 'dark'),
+    onChangeLanguage: () => setChoosing(true),
+  };
+
   return (
     <div className="stage">
-      <div className="shell">
-        <TopBar
-          lang={lang}
-          t={t}
-          onToggleTheme={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          onChangeLanguage={() => setChoosing(true)}
-        />
-        <main className="content">
-          {tab === 'home' ? (
-            <HomeScreen t={t} onSeeEvents={() => setTab('events')} />
-          ) : (
-            <EmptyScreen title={t.nav[tab]} />
-          )}
-        </main>
+      <div className={tab === 'map' ? 'shell shell-map' : 'shell'}>
+        {tab === 'map' ? (
+          <MapScreen {...headerProps} theme={theme} />
+        ) : (
+          <>
+            <TopBar lang={lang} {...headerProps} />
+            <main className="content">
+              {tab === 'home' ? (
+                <HomeScreen t={t} onSeeEvents={() => setTab('events')} />
+              ) : (
+                <EmptyScreen title={t.nav[tab]} />
+              )}
+            </main>
+          </>
+        )}
         <BottomNav t={t} tab={tab} onSelect={setTab} />
       </div>
     </div>
