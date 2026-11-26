@@ -1,8 +1,13 @@
-// 뼈대 단계: 내용은 모두 [ ] 자리 표시. 위치 기반 설명(나레이션)은 나중 단계.
+import { formatPeriod, useCurrentEvents } from '../data/events.js';
+
+// 행사 카드는 실제 데이터, 나머지는 [ ] 자리 표시. 위치 기반 설명(나레이션)은 나중 단계.
 const TRENDS = ['openRun', 'limited', 'rising'];
 
-export default function HomeScreen({ t, onSeeEvents }) {
+export default function HomeScreen({ lang, t, onSeeEvents }) {
   const home = t.home;
+  const { events, failed } = useCurrentEvents();
+  const next = events?.[0];
+  const notice = failed ? t.events.loadError : events === null ? t.events.loading : t.events.none;
 
   return (
     <div className="home">
@@ -22,14 +27,22 @@ export default function HomeScreen({ t, onSeeEvents }) {
               {home.seeAll}
             </button>
           </div>
-          <div className="event">
-            <div>
-              <p className="event-meta">{home.eventMeta}</p>
-              <p className="event-name">{home.eventName}</p>
-              <p className="event-note">{home.eventNote}</p>
+          {next ? (
+            <div className="event">
+              <div>
+                <p className="event-meta">{formatPeriod(next, lang)}</p>
+                <p className="event-name" lang="ko">
+                  {next.title}
+                </p>
+                <p className="event-note">{home.eventNote}</p>
+              </div>
+              <div className="qr">{home.qr}</div>
             </div>
-            <div className="qr">{home.qr}</div>
-          </div>
+          ) : (
+            <p className="event-empty" role="status">
+              {notice}
+            </p>
+          )}
         </section>
 
         <section className="card trend-card">

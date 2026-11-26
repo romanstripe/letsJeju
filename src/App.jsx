@@ -4,6 +4,7 @@ import { load, save } from './storage.js';
 import LanguageScreen from './screens/LanguageScreen.jsx';
 import HomeScreen from './screens/HomeScreen.jsx';
 import MapScreen from './screens/MapScreen.jsx';
+import EventsScreen from './screens/EventsScreen.jsx';
 import EmptyScreen from './screens/EmptyScreen.jsx';
 import TopBar from './components/TopBar.jsx';
 import BottomNav from './components/BottomNav.jsx';
@@ -54,15 +55,17 @@ export default function App() {
 
   return (
     <div className="stage">
-      <div className={tab === 'map' ? 'shell shell-map' : 'shell'}>
+      <div className={tab === 'map' || tab === 'events' ? 'shell shell-tall' : 'shell'}>
         {tab === 'map' ? (
           <MapScreen {...headerProps} theme={theme} />
+        ) : tab === 'events' ? (
+          <EventsScreen lang={lang} {...headerProps} />
         ) : (
           <>
             <TopBar lang={lang} {...headerProps} />
             <main className="content">
               {tab === 'home' ? (
-                <HomeScreen t={t} onSeeEvents={() => setTab('events')} />
+                <HomeScreen lang={lang} t={t} onSeeEvents={() => setTab('events')} />
               ) : (
                 <EmptyScreen title={t.nav[tab]} />
               )}
