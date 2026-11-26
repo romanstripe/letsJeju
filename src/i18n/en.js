@@ -1,0 +1,46 @@
+export default {
+  nativeName: 'English',
+  app: { name: '[App name]' },
+  language: {
+    title: 'Choose your language',
+    hint: 'You can change the language any time with the button at the top right',
+    names: {
+      ko: 'Korean',
+      en: 'English',
+      'zh-CN': 'Chinese (Simplified)',
+      'zh-TW': 'Chinese (Traditional)',
+      ja: 'Japanese',
+    },
+  },
+  header: {
+    weather: '[Temp] · [Weather]',
+    toggleTheme: 'Change brightness',
+    changeLanguage: 'Change language',
+  },
+  nav: {
+    home: 'Home',
+    map: 'Map & Course',
+    events: 'Events',
+    trend: 'Trends',
+    theme: 'Themes',
+    translate: 'Translate',
+  },
+  home: {
+    map: '[Map]',
+    placeName: '[Place name]',
+    placeDescription: '[Place description]',
+    eventsTitle: 'Seasonal events',
+    seeAll: 'See all',
+    eventMeta: '[Dates] · [N] min by car',
+    eventName: '[Festival name]',
+    eventNote: '[Booking info]',
+    qr: 'QR',
+    trendTitle: 'Trending in Jeju',
+    trendUpdated: 'Updated in [month]',
+    trends: {
+      openRun: { badge: 'Queue early', name: '[Shop name]', where: '[Area] · [N] min' },
+      limited: { badge: 'Limited', name: '[Limited item] · until [date]', where: '[Area]' },
+      rising: { badge: 'Hot spot', name: '[Area · Place]', where: '[Distance]' },
+    },
+  },
+};

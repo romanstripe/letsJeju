@@ -1,0 +1,40 @@
+export default {
+  nativeName: '简体中文',
+  app: { name: '[应用名称]' },
+  language: {
+    title: '请选择语言',
+    hint: '可随时通过右上角的按钮更改语言',
+    names: { ko: '韩语', en: '英语', 'zh-CN': '简体中文', 'zh-TW': '繁体中文', ja: '日语' },
+  },
+  header: {
+    weather: '[气温] · [天气]',
+    toggleTheme: '切换亮度',
+    changeLanguage: '更改语言',
+  },
+  nav: {
+    home: '首页',
+    map: '地图·路线',
+    events: '活动',
+    trend: '热门',
+    theme: '主题',
+    translate: '翻译',
+  },
+  home: {
+    map: '[地图]',
+    placeName: '[地点名称]',
+    placeDescription: '[地点介绍]',
+    eventsTitle: '当季限定活动',
+    seeAll: '查看全部',
+    eventMeta: '[日期] · 车程[N]分钟',
+    eventName: '[庆典名称]',
+    eventNote: '[预约说明]',
+    qr: 'QR',
+    trendTitle: '济州当下热门',
+    trendUpdated: '[N]月更新',
+    trends: {
+      openRun: { badge: '需排队', name: '[店铺名称]', where: '[地区] · [N]分钟' },
+      limited: { badge: '限定', name: '[限定商品] · 至[结束日期]', where: '[地区]' },
+      rising: { badge: '人气地点', name: '[地区 · 地点]', where: '[距离]' },
+    },
+  },
+};

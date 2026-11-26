@@ -1,0 +1,426 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 브라우저가 더 크면 1280x800 틀을 가운데에 */
+#root {
+  display: flex;
+  min-width: 100vw;
+  min-height: 100vh;
+  width: max-content;
+}
+
+.stage {
+  margin: auto;
+  width: 1280px;
+  height: 800px;
+  flex: none;
+  overflow: hidden;
+  background: var(--bg);
+  outline: 1px solid var(--line);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+ul {
+  list-style: none;
+}
+
+h1,
+h2 {
+  word-break: keep-all;
+}
+
+/* ---------- 언어 고르기 ---------- */
+.language {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 138px;
+}
+
+.language-title {
+  font-size: 40px;
+  line-height: 52px;
+}
+
+.language-subtitle {
+  margin-top: 14px;
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--sub);
+}
+
+.language-grid {
+  margin-top: 48px;
+  width: 1088px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.language-card {
+  height: 148px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+}
+
+.language-card[aria-pressed='true'] {
+  background: var(--chip);
+  border: 3px solid var(--accent);
+}
+
+.language-native {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 44px;
+}
+
+.language-sub {
+  font-size: 16px;
+  color: var(--sub);
+}
+
+.language-hint {
+  margin-top: 52px;
+  font-size: 15px;
+  color: var(--faint);
+}
+
+/* ---------- 공통 틀 ---------- */
+.shell {
+  height: 100%;
+  padding: 28px 28px 12px;
+  display: grid;
+  grid-template-rows: 48px 588px 1fr;
+  grid-template-columns: 100%;
+  row-gap: 24px;
+}
+
+.content {
+  min-height: 0;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 24px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ---------- 위쪽 바 ---------- */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.app-name {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.topbar-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.top-date,
+.weather {
+  font-size: 18px;
+  color: var(--sub);
+}
+
+.top-time {
+  font-size: 28px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.weather {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.weather svg {
+  color: var(--text);
+}
+
+.round-button,
+.pill-button {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--chip);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+}
+
+.round-button {
+  width: 48px;
+  margin-left: 4px;
+}
+
+.pill-button {
+  min-width: 119px;
+  padding: 0 20px;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+/* ---------- 아래 메뉴 ---------- */
+.bottom-nav {
+  margin-top: -4px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 7px;
+}
+
+.nav-button {
+  height: 69px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 16px;
+  font-size: 15px;
+  color: var(--sub);
+}
+
+.nav-button[aria-current='page'] {
+  background: var(--chip);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ---------- 홈 ---------- */
+.home {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 766px 1fr;
+  grid-template-rows: 100%;
+  gap: 20px;
+}
+
+.map-card {
+  display: grid;
+  grid-template-rows: 356px 1fr;
+}
+
+.map-placeholder {
+  display: grid;
+  place-items: center;
+  background: var(--item);
+  font-size: 22px;
+  color: var(--faint);
+}
+
+.place {
+  padding: 32px 28px;
+}
+
+.place-name {
+  font-size: 34px;
+  line-height: 44px;
+}
+
+.place-description {
+  margin-top: 10px;
+  font-size: 17px;
+  color: var(--sub);
+}
+
+.home-side {
+  display: grid;
+  grid-template-rows: 173px 1fr;
+  gap: 20px;
+  min-height: 0;
+}
+
+.events-card,
+.trend-card {
+  padding: 18px 24px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+}
+
+.card-header h2 {
+  font-size: 20px;
+}
+
+.text-button {
+  min-width: 44px;
+  min-height: 44px;
+  flex: none;
+  font-size: 15px;
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.event {
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.event-meta {
+  font-size: 14px;
+  color: var(--teal);
+}
+
+.event-name {
+  margin: 4px 0;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.event-note {
+  font-size: 14px;
+  color: var(--sub);
+}
+
+.qr {
+  width: 86px;
+  height: 86px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  background: var(--qr-bg);
+  color: var(--qr-ink);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.chip {
+  flex: none;
+  padding: 4px 10px;
+  border-radius: 14px;
+  background: var(--chip);
+  font-size: 13px;
+  color: var(--sub);
+}
+
+/* 다크에서는 chip 이 card 와 거의 같아서 item 색을 쓴다 */
+:root[data-theme='dark'] .chip {
+  background: var(--item);
+}
+
+.trend-card {
+  padding-top: 22px;
+}
+
+.trend-list {
+  margin-top: 6px;
+  display: grid;
+  gap: 12px;
+}
+
+.trend-row {
+  min-height: 51px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 14px;
+  background: var(--item);
+  border-radius: 16px;
+}
+
+.badge {
+  flex: none;
+  padding: 4px 8px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--on-accent);
+}
+
+.badge-openRun {
+  background: var(--accent);
+}
+
+.badge-limited {
+  background: var(--teal);
+}
+
+.badge-rising {
+  background: var(--sub);
+  color: var(--card);
+}
+
+.trend-name {
+  flex: 1;
+  font-size: 17px;
+}
+
+.trend-where {
+  flex: none;
+  font-size: 14px;
+  color: var(--sub);
+}
+
+/* ---------- 빈 화면 ---------- */
+.empty-screen {
+  height: 100%;
+  padding: 28px;
+}
+
+.empty-screen h1 {
+  font-size: 28px;
+}

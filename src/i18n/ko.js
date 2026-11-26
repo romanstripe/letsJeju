@@ -1,0 +1,40 @@
+export default {
+  nativeName: '한국어',
+  app: { name: '[앱 이름]' },
+  language: {
+    title: '언어를 고르세요',
+    hint: '언어는 오른쪽 위 버튼으로 언제든 바꿀 수 있어요',
+    names: { ko: '한국어', en: '영어', 'zh-CN': '중국어 간체', 'zh-TW': '중국어 번체', ja: '일본어' },
+  },
+  header: {
+    weather: '[기온] · [날씨]',
+    toggleTheme: '밝기 바꾸기',
+    changeLanguage: '언어 바꾸기',
+  },
+  nav: {
+    home: '홈',
+    map: '지도·코스',
+    events: '행사',
+    trend: '트렌드',
+    theme: '테마',
+    translate: '번역',
+  },
+  home: {
+    map: '[지도]',
+    placeName: '[장소 이름]',
+    placeDescription: '[장소 설명]',
+    eventsTitle: '이 시기에만 하는 행사',
+    seeAll: '전체 보기',
+    eventMeta: '[기간] · 차로 [N]분',
+    eventName: '[축제 이름]',
+    eventNote: '[예약 안내]',
+    qr: 'QR',
+    trendTitle: '요즘 제주에서 뜨는 것',
+    trendUpdated: '[N]월 업데이트',
+    trends: {
+      openRun: { badge: '오픈런', name: '[가게 이름]', where: '[지역] · [N]분' },
+      limited: { badge: '한정판', name: '[한정판 상품] · ~[종료일]', where: '[지역]' },
+      rising: { badge: '뜨는 곳', name: '[지역 · 장소]', where: '[거리]' },
+    },
+  },
+};

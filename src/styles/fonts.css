@@ -1,0 +1,53 @@
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/Pretendard-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 500;
+  font-display: swap;
+  src: url('../assets/fonts/Pretendard-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/fonts/Pretendard-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Pretendard JP';
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/PretendardJP-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Pretendard JP';
+  font-weight: 500;
+  font-display: swap;
+  src: url('../assets/fonts/PretendardJP-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Pretendard JP';
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/fonts/PretendardJP-Bold.woff2') format('woff2');
+}
+
+/* lang 속성이 붙은 요소마다 글꼴을 다시 정한다.
+   중국어는 영문·숫자까지 Noto Sans 만 쓴다 (Pretendard 를 섞지 않는다).
+   Noto Sans 는 @fontsource-variable 패키지(main.jsx 에서 import)라 필요한 조각만 받는다. */
+:lang(ko),
+:lang(en) {
+  font-family: 'Pretendard', sans-serif;
+}
+:lang(ja) {
+  font-family: 'Pretendard JP', 'Pretendard', sans-serif;
+}
+:lang(zh-CN) {
+  font-family: 'Noto Sans SC Variable', sans-serif;
+}
+:lang(zh-TW) {
+  font-family: 'Noto Sans TC Variable', sans-serif;
+}

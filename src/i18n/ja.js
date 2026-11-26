@@ -1,0 +1,40 @@
+export default {
+  nativeName: '日本語',
+  app: { name: '[アプリ名]' },
+  language: {
+    title: '言語を選んでください',
+    hint: '言語は右上のボタンでいつでも変更できます',
+    names: { ko: '韓国語', en: '英語', 'zh-CN': '中国語（簡体字）', 'zh-TW': '中国語（繁体字）', ja: '日本語' },
+  },
+  header: {
+    weather: '[気温] · [天気]',
+    toggleTheme: '明るさを切り替える',
+    changeLanguage: '言語を変更する',
+  },
+  nav: {
+    home: 'ホーム',
+    map: '地図・コース',
+    events: 'イベント',
+    trend: 'トレンド',
+    theme: 'テーマ',
+    translate: '翻訳',
+  },
+  home: {
+    map: '[地図]',
+    placeName: '[スポット名]',
+    placeDescription: '[スポット紹介]',
+    eventsTitle: '今の時期だけのイベント',
+    seeAll: 'すべて見る',
+    eventMeta: '[期間] · 車で[N]分',
+    eventName: '[祭りの名前]',
+    eventNote: '[予約案内]',
+    qr: 'QR',
+    trendTitle: '今、済州で話題',
+    trendUpdated: '[N]月更新',
+    trends: {
+      openRun: { badge: '行列必至', name: '[店名]', where: '[エリア] · [N]分' },
+      limited: { badge: '限定', name: '[限定商品] · ～[終了日]', where: '[エリア]' },
+      rising: { badge: '注目の場所', name: '[エリア · スポット]', where: '[距離]' },
+    },
+  },
+};

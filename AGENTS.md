@@ -23,7 +23,7 @@
 text #F2F0EB, sub #C9C6BF, faint #9E9B94, accent #F28C28(감귤), teal #4FB3BF, on-accent #121517
 라이트(제주 바다): bg #EEF6FA, card #FFFFFF, chip #E3EFF6, item #F1F7FB, line #C3D7E3,
 text #0F2A3A, sub #46606F, faint #5B7483, accent #0A6EAD, teal #0E7C86, on-accent #FFFFFF
-글꼴: Noto Sans KR (중국어/일본어는 Noto Sans SC/JP)
+글꼴: 한국어/영어 Pretendard, 일본어 Pretendard JP, 중국어 Noto Sans SC/TC
 
 ## 화면 구성
 

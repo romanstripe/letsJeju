@@ -1,0 +1,40 @@
+export default {
+  nativeName: '繁體中文',
+  app: { name: '[應用程式名稱]' },
+  language: {
+    title: '請選擇語言',
+    hint: '可隨時透過右上角的按鈕變更語言',
+    names: { ko: '韓文', en: '英文', 'zh-CN': '簡體中文', 'zh-TW': '繁體中文', ja: '日文' },
+  },
+  header: {
+    weather: '[氣溫] · [天氣]',
+    toggleTheme: '切換亮度',
+    changeLanguage: '變更語言',
+  },
+  nav: {
+    home: '首頁',
+    map: '地圖·路線',
+    events: '活動',
+    trend: '熱門',
+    theme: '主題',
+    translate: '翻譯',
+  },
+  home: {
+    map: '[地圖]',
+    placeName: '[地點名稱]',
+    placeDescription: '[地點介紹]',
+    eventsTitle: '當季限定活動',
+    seeAll: '查看全部',
+    eventMeta: '[日期] · 車程[N]分鐘',
+    eventName: '[慶典名稱]',
+    eventNote: '[預約說明]',
+    qr: 'QR',
+    trendTitle: '濟州當下熱門',
+    trendUpdated: '[N]月更新',
+    trends: {
+      openRun: { badge: '需排隊', name: '[店家名稱]', where: '[地區] · [N]分鐘' },
+      limited: { badge: '限定', name: '[限定商品] · 至[結束日期]', where: '[地區]' },
+      rising: { badge: '人氣地點', name: '[地區 · 地點]', where: '[距離]' },
+    },
+  },
+};
