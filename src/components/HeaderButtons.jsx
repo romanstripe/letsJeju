@@ -1,14 +1,11 @@
 import Icon from './Icon.jsx';
 
-// 오른쪽 위 밝기, 지도 켜기, 번역, 언어 버튼. 모든 화면 공통.
+// 오른쪽 위 지도 켜기, 번역, 언어, 밝기 버튼. 모든 화면 공통.
 export default function HeaderButtons({ t, extra, mapOn, onToggleMap, translating, onToggleTheme, onTranslate, onChangeLanguage }) {
   const h = t.header;
   return (
     <div className="header-buttons">
       {extra}
-      <button type="button" className="round-button" aria-label={h.toggleTheme} onClick={onToggleTheme}>
-        <Icon name="brightness" size={20} />
-      </button>
       <button type="button" className="pill-button map-switch" aria-pressed={mapOn} onClick={onToggleMap}>
         <Icon name="map" size={20} />
         {mapOn ? h.mapOn : h.mapOff}
@@ -25,6 +22,9 @@ export default function HeaderButtons({ t, extra, mapOn, onToggleMap, translatin
       >
         <Icon name="globe" size={20} />
         {t.nativeName}
+      </button>
+      <button type="button" className="round-button" aria-label={h.toggleTheme} onClick={onToggleTheme}>
+        <Icon name="brightness" size={20} />
       </button>
     </div>
   );

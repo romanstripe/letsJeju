@@ -77,6 +77,7 @@ function KakaoMap({ pins, path = false, lines, others, me, level = LEVEL, onPick
   const [failed, setFailed] = useState(false);
   const initial = useRef({ center: me ?? CENTER, level });
   const moved = useRef(false);
+  const [resized, setResized] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -123,6 +124,25 @@ function KakaoMap({ pins, path = false, lines, others, me, level = LEVEL, onPick
       onView(null);
     };
   }, [onView]);
+
+  // 화면 크기가 바뀌면 지도를 다시 맞춘다. 보던 가운데는 그대로.
+  useEffect(() => {
+    if (!kakaoMap) return undefined;
+    const { map } = kakaoMap;
+    const node = container.current;
+    let size = `${node.clientWidth}x${node.clientHeight}`;
+    const observer = new ResizeObserver(() => {
+      const next = `${node.clientWidth}x${node.clientHeight}`;
+      if (next === size) return;
+      size = next;
+      const center = map.getCenter();
+      map.relayout();
+      map.setCenter(center);
+      setResized((n) => n + 1); // 코스와 기록은 모든 핀이 보이게 다시 맞춘다
+    });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [kakaoMap]);
 
   // 현재 위치 표시. 위치가 바뀌었고 사용자가 지도를 안 움직였으면 따라간다.
   useEffect(() => {
@@ -229,7 +249,7 @@ function KakaoMap({ pins, path = false, lines, others, me, level = LEVEL, onPick
     // 기록 화면은 아래에 QR 판이 있어 아래 여백을 크게
     map.setBounds(bounds, 90, 50, path === 'solid' ? 190 : 40, 50);
     if (map.getLevel() < 6) map.setLevel(6);
-  }, [kakaoMap, route, lines, path]);
+  }, [kakaoMap, route, lines, path, resized]);
 
   return (
     <>

@@ -128,8 +128,6 @@ export default function CourseScreen({ lang, t, theme }) {
           theme={theme}
           errorText={t.map.mapError}
         />
-        {/* OpenStreetMap 경로는 출처를 표시해야 한다 */}
-        {route && <p className="legend-chip course-source">{route.source === 'trail' ? c.routeTrail : c.routeWalk}</p>}
       </section>
 
       <aside className="card course-panel">
@@ -152,6 +150,8 @@ export default function CourseScreen({ lang, t, theme }) {
                     </p>
                   )}
                   <p>{c.notice}</p>
+                  {/* OpenStreetMap 경로의 출처. 도보 검색 경로는 공식 올레길과 다를 수 있다는 안내도 함께 */}
+                  {route && <p className="course-credit">{route.source === 'trail' ? c.routeTrail : c.routeWalk}</p>}
                   {credits.map((credit) => (
                     <p key={credit} className="course-credit">
                       {credit}

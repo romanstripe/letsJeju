@@ -10,22 +10,17 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* 브라우저가 더 크면 1280x800 틀을 가운데에 */
-#root {
-  display: flex;
-  min-width: 100vw;
-  min-height: 100vh;
-  width: max-content;
-}
-
+/* 가로 화면을 꽉 채운다. 1024x640 보다 작으면 줄이지 않고 스크롤 */
+/* position: 안쪽의 absolute 요소(화면 읽기용 글자 등)가 페이지를 늘리지 않게 */
 .stage {
-  margin: auto;
-  width: 1280px;
-  height: 800px;
-  flex: none;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-width: 1024px;
+  min-height: 640px;
   overflow: hidden;
   background: var(--bg);
-  outline: 1px solid var(--line);
 }
 
 button {
@@ -57,7 +52,9 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 138px;
+  justify-content: center;
+  padding: 24px 28px;
+  text-align: center;
 }
 
 .language-title {
@@ -73,15 +70,15 @@ h2 {
 }
 
 .language-grid {
-  margin-top: 48px;
-  width: 1088px;
+  margin-top: clamp(20px, 6vh, 64px);
+  width: min(1088px, 100%);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
 .language-card {
-  height: 148px;
+  height: clamp(112px, 18.5vh, 180px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -109,7 +106,7 @@ h2 {
 }
 
 .language-hint {
-  margin-top: 52px;
+  margin-top: clamp(20px, 6.5vh, 64px);
   font-size: 15px;
   color: var(--faint);
 }
@@ -119,14 +116,13 @@ h2 {
   height: 100%;
   padding: 24px 28px 10px;
   display: grid;
-  grid-template-rows: 48px 618px 1fr;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   grid-template-columns: 100%;
 }
 
 .content {
   min-height: 0;
   margin-top: 16px;
-  height: 618px;
 }
 
 .card {
@@ -139,6 +135,7 @@ h2 {
 
 /* ---------- 위쪽 바 ---------- */
 .screen-header {
+  min-height: 48px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -465,9 +462,11 @@ img.is-whole,
   border-bottom: 1px solid var(--line);
   white-space: nowrap;
   overflow-x: auto;
+  scrollbar-width: none;
 }
 
 .tab {
+  flex: none;
   min-width: 56px;
   height: 46px;
   padding: 0 11px;
@@ -486,6 +485,28 @@ img.is-whole,
   width: 1px;
   margin: 12px 8px;
   background: var(--line);
+}
+
+/* 좁은 화면에서는 탭 간격을 줄인다 */
+@media (max-width: 1100px) {
+  .tabs {
+    gap: 0;
+  }
+
+  .tab {
+    min-width: 44px;
+    padding: 0 8px;
+    font-size: 15px;
+  }
+
+  .course-left .tab {
+    padding: 0 2px;
+    font-size: 14px;
+  }
+
+  .tab-divider {
+    margin: 12px 4px;
+  }
 }
 
 .photo-pin {
@@ -618,7 +639,7 @@ img.is-whole,
 .here {
   height: 100%;
   display: grid;
-  grid-template-columns: 713px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) clamp(360px, 40%, 560px);
   grid-template-rows: 100%;
   gap: 20px;
 }
@@ -631,7 +652,7 @@ img.is-whole,
 }
 
 .narration-photo {
-  height: 170px;
+  height: clamp(110px, 21vh, 280px);
   padding: 14px;
   background: var(--chip);
 }
@@ -663,6 +684,7 @@ img.is-whole,
 }
 
 .narration-title {
+  word-break: keep-all;
   font-size: 28px;
   line-height: 36px;
 }
@@ -708,6 +730,7 @@ img.is-whole,
 }
 
 .next-card {
+  overflow-y: auto;
   padding: 18px 20px;
 }
 
@@ -748,7 +771,7 @@ img.is-whole,
 .browse {
   height: 100%;
   display: grid;
-  grid-template-columns: 587px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 0.945fr) minmax(0, 1fr);
   grid-template-rows: 47px minmax(0, 1fr);
   gap: 16px;
 }
@@ -927,7 +950,7 @@ img.is-whole,
 .course {
   height: 100%;
   display: grid;
-  grid-template-columns: 340px minmax(0, 1fr) 340px;
+  grid-template-columns: clamp(280px, 27.8%, 440px) minmax(0, 1fr) clamp(280px, 27.8%, 440px);
   grid-template-rows: 100%;
   gap: 20px;
 }
@@ -939,7 +962,7 @@ img.is-whole,
 }
 
 .course-left .tab {
-  flex: 1;
+  flex: 1 0 auto;
   padding: 0 4px;
 }
 
@@ -1003,16 +1026,6 @@ img.is-whole,
   color: var(--faint);
 }
 
-.course-source {
-  position: absolute;
-  left: 14px;
-  top: 14px;
-  right: 14px;
-  width: fit-content;
-  z-index: 20;
-  pointer-events: none;
-}
-
 .course-panel {
   display: flex;
   flex-direction: column;
@@ -1050,6 +1063,12 @@ img.is-whole,
 
 .course-hero p {
   font-size: 13px;
+}
+
+/* 숨은 글자가 목록과 함께 움직이고 잘리게 */
+.course-scroll,
+.next-card {
+  position: relative;
 }
 
 .course-scroll {
@@ -1176,7 +1195,7 @@ img.is-whole,
 .log {
   height: 100%;
   display: grid;
-  grid-template-columns: 824px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) clamp(320px, 31%, 460px);
   grid-template-rows: 100%;
   gap: 20px;
 }
@@ -1391,6 +1410,7 @@ img.is-whole,
   gap: 10px;
   overflow-x: auto;
   white-space: nowrap;
+  scrollbar-width: none;
 }
 
 .phrases .filter-button {
