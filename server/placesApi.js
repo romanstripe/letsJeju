@@ -10,7 +10,7 @@ const CATEGORIES = new Set(['c1', 'c2', 'c4', 'c5', 'c6']);
 // 좌표가 제주(추자도 포함) 밖이면 뺀다. 좌표가 없는 항목은 lat, lng 를 null 로 보낸다.
 const inJeju = (lat, lng) => lat > 33 && lat < 34.1 && lng > 126 && lng < 127.1;
 
-function toPlace(item) {
+export function toPlace(item) {
   return {
     id: item.contentsid,
     category: item.contentscd?.value,
@@ -25,7 +25,7 @@ function toPlace(item) {
 }
 
 // TourAPI 항목을 같은 모양으로. 태그와 소개글은 없다.
-function fromTour(item) {
+export function fromTour(item) {
   const [city, town] = String(item.addr1 ?? '').replace('제주특별자치도 ', '').split(' ');
   return {
     id: `tour:${item.contentid}`,

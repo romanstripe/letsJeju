@@ -64,6 +64,7 @@ function pinElement(pin) {
 // path 를 주면 핀 순서대로 잇는다. 'solid' 는 기록용(청록, kind 'missed' 는 잇지 않음).
 // lines([[[lat, lng], ...], ...])를 주면 그 선을 그리고 거기에 맞춰 보여준다.
 // others([{ lat, lng }])는 숫자 묶음으로 보여준다.
+// sections([{ id, number, points, active }])는 짧은 선과 번호를 그리고, active 인 선에 지도를 맞춘다.
 // me 를 주면 현재 위치를 표시하고 그곳을 중심으로 연다. 사용자가 지도를 직접 움직이면 moved 가 true.
 // 지도를 꺼 두면 안쪽 컴포넌트를 만들지 않아서 카카오를 부르지 않는다
 export default function BrowseMap(props) {
@@ -71,7 +72,7 @@ export default function BrowseMap(props) {
   return on ? <KakaoMap {...props} /> : <p className="map-message map-off">{offText}</p>;
 }
 
-function KakaoMap({ pins, path = false, lines, others, me, level = LEVEL, onPick, onView, theme, errorText }) {
+function KakaoMap({ pins, path = false, lines, others, sections, me, level = LEVEL, onPick, onView, theme, errorText }) {
   const container = useRef(null);
   const [kakaoMap, setKakaoMap] = useState(null);
   const [failed, setFailed] = useState(false);
@@ -198,6 +199,40 @@ function KakaoMap({ pins, path = false, lines, others, me, level = LEVEL, onPick
       shown.forEach(({ overlay }) => overlay.setMap(null));
     };
   }, [kakaoMap, pins, onPick, path, lines]);
+
+  useEffect(() => {
+    if (!kakaoMap || !sections) return undefined;
+    const { maps, map } = kakaoMap;
+    const css = getComputedStyle(document.documentElement);
+    const drawn = sections.flatMap((section) => {
+      const path = section.points.map(([lat, lng]) => new maps.LatLng(lat, lng));
+      const line = new maps.Polyline({
+        map,
+        path,
+        strokeWeight: section.active ? 7 : 4,
+        strokeColor: css.getPropertyValue(section.active ? '--accent' : '--teal').trim(),
+        strokeOpacity: 0.95,
+      });
+      const badge = element('button', section.active ? 'section-number is-active' : 'section-number', section.number);
+      badge.type = 'button';
+      badge.addEventListener('click', () => onPick(section.id));
+      const overlay = new maps.CustomOverlay({ map, position: path[0], content: badge, clickable: true, zIndex: section.active ? 20 : 5 });
+      return [line, overlay];
+    });
+    return () => drawn.forEach((item) => item.setMap(null));
+  }, [kakaoMap, sections, onPick, theme]);
+
+  const focus = sections?.find((section) => section.active);
+  const focusId = focus?.id;
+  const focusPoints = useRef(null);
+  focusPoints.current = focus?.points;
+  useEffect(() => {
+    if (!kakaoMap || !focusId) return;
+    const { maps, map } = kakaoMap;
+    const bounds = new maps.LatLngBounds();
+    focusPoints.current.forEach(([lat, lng]) => bounds.extend(new maps.LatLng(lat, lng)));
+    map.setBounds(bounds, 60, 60, 60, 60);
+  }, [kakaoMap, focusId, resized]);
 
   useEffect(() => {
     if (!kakaoMap || !others?.length) return undefined;

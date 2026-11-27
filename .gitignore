@@ -6,3 +6,5 @@ node_modules/
 dist/
 
 /audio-test
+# 사용 허락 전인 캡처 사진
+/public/trend-photos/

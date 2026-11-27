@@ -14,6 +14,21 @@ export function loadPlaces() {
   return request;
 }
 
+let trendsRequest;
+
+export function loadTrends() {
+  trendsRequest ??= fetch('/api/trends')
+    .then((res) => {
+      if (!res.ok) throw new Error(`/api/trends ${res.status}`);
+      return res.json();
+    })
+    .catch((err) => {
+      trendsRequest = undefined;
+      throw err;
+    });
+  return trendsRequest;
+}
+
 let gourmetRequest;
 
 export function loadGourmet() {

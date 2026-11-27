@@ -19,6 +19,7 @@ export const themeGroups = [
   { id: 'solo', tags: ['혼자'] }, // 혼자
   { id: 'rainyDay', tags: ['실내', '실내+실외', '실내관광지'] }, // 비 오는 날
   { id: 'sunriseSunset', tags: ['일출', '일몰', '일몰명소'] }, // 일출·일몰
+  { id: 'market', tags: ['전통시장', '오일장'] }, // 시장
   { id: 'olle', tags: ['올레', '올레길', '제주올레', '제주올레길'] }, // 올레길 (올레시장은 제외)
 ];
 

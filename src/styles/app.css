@@ -242,44 +242,8 @@ h2 {
   gap: 20px;
 }
 
-.map-card {
-  display: grid;
-  grid-template-rows: 356px 1fr;
-}
-
-.map-placeholder {
-  display: grid;
-  place-items: center;
-  background: var(--item);
-  font-size: 22px;
-  color: var(--faint);
-}
-
 .place {
   padding: 32px 28px;
-}
-
-.place-name {
-  font-size: 34px;
-  line-height: 44px;
-}
-
-.place-description {
-  margin-top: 10px;
-  font-size: 17px;
-  color: var(--sub);
-}
-
-.home-side {
-  display: grid;
-  grid-template-rows: 173px 1fr;
-  gap: 20px;
-  min-height: 0;
-}
-
-.events-card,
-.trend-card {
-  padding: 18px 24px;
 }
 
 .card-header {
@@ -317,12 +281,6 @@ h2 {
   color: var(--teal);
 }
 
-.event-name {
-  margin: 4px 0;
-  font-size: 19px;
-  font-weight: 700;
-}
-
 .event-note {
   font-size: 14px;
   color: var(--sub);
@@ -356,26 +314,6 @@ h2 {
   background: var(--item);
 }
 
-.trend-card {
-  padding-top: 22px;
-}
-
-.trend-list {
-  margin-top: 6px;
-  display: grid;
-  gap: 12px;
-}
-
-.trend-row {
-  min-height: 51px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 8px 14px;
-  background: var(--item);
-  border-radius: 16px;
-}
-
 .badge {
   flex: none;
   padding: 4px 8px;
@@ -383,30 +321,6 @@ h2 {
   font-size: 13px;
   font-weight: 700;
   color: var(--on-accent);
-}
-
-.badge-openRun {
-  background: var(--accent);
-}
-
-.badge-limited {
-  background: var(--teal);
-}
-
-.badge-rising {
-  background: var(--sub);
-  color: var(--card);
-}
-
-.trend-name {
-  flex: 1;
-  font-size: 17px;
-}
-
-.trend-where {
-  flex: none;
-  font-size: 14px;
-  color: var(--sub);
 }
 
 /* ---------- 공통: 작은 사진, 탭, 지도 핀 ---------- */
@@ -507,6 +421,43 @@ img.is-whole,
   .tab-divider {
     margin: 12px 4px;
   }
+}
+
+/* 실내만 켜기 (카드 위의 안내 문구 자리) */
+.indoor-toggle {
+  flex: none;
+  width: 100%;
+  min-height: 44px;
+  border-radius: 14px;
+  background: var(--chip);
+  font-size: 15px;
+  color: var(--sub);
+}
+
+.indoor-toggle[aria-pressed='true'] {
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 700;
+}
+
+/* 올레 카드는 설명이 길어 두 줄까지 */
+.browse-card.is-wrap .browse-meta {
+  white-space: normal;
+}
+
+.section-number {
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--card);
+  border-radius: 50%;
+  background: var(--teal);
+  color: var(--on-accent);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.section-number.is-active {
+  background: var(--accent);
 }
 
 .photo-pin {
@@ -1418,14 +1369,6 @@ img.is-whole,
 }
 
 /* ---------- 빈 화면 ---------- */
-.empty-screen {
-  height: 100%;
-  padding: 28px;
-}
-
-.empty-screen h1 {
-  font-size: 28px;
-}
 
 /* ---------- 지도 ---------- */
 .filters {
@@ -1451,14 +1394,6 @@ img.is-whole,
   font-weight: 700;
 }
 
-.map-screen {
-  display: grid;
-  height: 100%;
-  grid-template-columns: 789px 1fr;
-  grid-template-rows: 46px minmax(0, 1fr);
-  gap: 18px;
-}
-
 .map-area {
   position: relative;
   isolation: isolate;
@@ -1478,43 +1413,6 @@ img.is-whole,
 }
 
 /* 왼쪽 아래의 카카오 지도 표시를 가리지 않게 위에 둔다 */
-.map-legend {
-  position: absolute;
-  left: 16px;
-  top: 16px;
-  z-index: 20;
-  display: flex;
-  gap: 12px;
-  pointer-events: none;
-}
-
-.legend-chip {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  border-radius: 20px;
-  background: var(--card);
-  color: var(--text);
-  font-size: 14px;
-}
-
-.legend-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  background: var(--accent);
-}
-
-.pin-label {
-  padding: 4px 10px;
-  border-radius: 12px;
-  background: var(--card);
-  color: var(--text);
-  font-size: 14px;
-  font-weight: 700;
-  white-space: nowrap;
-}
 
 .panel {
   display: flex;
@@ -1608,21 +1506,6 @@ button:disabled {
 }
 
 /* ---------- 행사 ---------- */
-.event-empty {
-  height: 90px;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  color: var(--sub);
-}
-
-.events-screen {
-  display: grid;
-  height: 100%;
-  grid-template-columns: 722px 1fr;
-  grid-template-rows: 46px minmax(0, 1fr);
-  gap: 18px;
-}
 
 .events-column {
   display: flex;
@@ -1632,71 +1515,6 @@ button:disabled {
 
 .events-column h2 {
   font-size: 20px;
-}
-
-.events-notice {
-  margin: auto;
-  padding: 16px;
-  text-align: center;
-  font-size: 20px;
-  color: var(--sub);
-}
-
-.events-list {
-  flex: 1;
-  min-height: 0;
-  margin-top: 14px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.event-row,
-.season-row {
-  width: 100%;
-  flex: none;
-  border-radius: 20px;
-  background: var(--item);
-  text-align: left;
-}
-
-.season-row {
-  padding: 14px 16px;
-}
-
-.event-row {
-  min-height: 116px;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  padding: 14px 16px;
-  border: 2px solid transparent;
-}
-
-.event-row[aria-pressed='true'] {
-  border-color: var(--accent);
-}
-
-.event-thumb {
-  width: 112px;
-  height: 84px;
-  flex: none;
-  border-radius: 12px;
-  background: var(--chip);
-}
-
-.event-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.event-text {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
 }
 
 .event-detail-body {
@@ -1747,119 +1565,6 @@ button:disabled {
 }
 
 /* ---------- 테마 ---------- */
-.theme-screen {
-  display: grid;
-  height: 100%;
-  grid-template-columns: 657px 1fr;
-  grid-template-rows: 100%;
-  gap: 18px;
-}
-
-.theme-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, minmax(0, 1fr));
-  min-height: 0;
-  gap: 12px;
-}
-
-.theme-tile {
-  padding: 8px;
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  background: var(--card);
-  font-size: 17px;
-  font-weight: 500;
-  word-break: keep-all;
-  overflow-wrap: anywhere;
-}
-
-.theme-tile[aria-pressed='true'] {
-  border: 2px solid var(--accent);
-  background: color-mix(in srgb, var(--accent) 12%, var(--card));
-  color: var(--accent);
-  font-weight: 700;
-}
-
-.theme-tile-more {
-  border-style: dashed;
-  background: transparent;
-  color: var(--sub);
-}
-
-.theme-panel {
-  display: flex;
-  flex-direction: column;
-  padding: 18px 24px;
-}
-
-.theme-list {
-  flex: 1;
-  min-height: 0;
-  margin-top: 10px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.theme-row {
-  width: 100%;
-  min-height: 88px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 12px;
-  border-radius: 16px;
-  background: var(--item);
-  text-align: left;
-}
-
-.theme-thumb {
-  width: 84px;
-  height: 64px;
-  flex: none;
-  overflow: hidden;
-  border-radius: 10px;
-  background: var(--chip);
-}
-
-.theme-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.theme-text {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.theme-name {
-  font-size: 17px;
-  font-weight: 700;
-}
-
-.theme-meta {
-  font-size: 13px;
-  color: var(--sub);
-}
-
-.theme-more {
-  width: 100%;
-  min-height: 48px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  color: var(--sub);
-}
-
-.theme-note {
-  margin-top: 10px;
-  font-size: 13px;
-  color: var(--faint);
-}
 
 .panel-close {
   float: right;

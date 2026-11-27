@@ -17,16 +17,37 @@ function Photo({ place, fallback }) {
   return <img className="panel-photo" src={place.photo} alt={place.title} onError={() => setBroken(true)} />;
 }
 
+// "요즘 제주"에서 연 곳만: 추천 이유(언급 수, 검색량)와 직접 적은 메뉴
+function Recommend({ info, b }) {
+  const { sources, rising, menu } = info;
+  return (
+    <>
+      <p className="panel-meta">
+        <strong>{b.why}</strong>
+        <br />
+        {sources
+          ? b.whyCounts.replace('{youtube}', sources.youtube).replace('{blog}', sources.blog).replace('{news}', sources.news)
+          : b.whyPicked}
+        {rising && (
+          <>
+            <br />
+            {b.whyRising}
+          </>
+        )}
+      </p>
+      {menu && (
+        <p className="panel-meta">
+          <strong>{b.menu}</strong>
+          <br />
+          <span lang="ko">{menu}</span>
+        </p>
+      )}
+    </>
+  );
+}
+
 export default function PlacePanel({ place, t, onClose }) {
   const m = t.map;
-
-  if (!place) {
-    return (
-      <aside className="card panel">
-        <p className="panel-empty">{m.empty}</p>
-      </aside>
-    );
-  }
 
   return (
     <aside className="card panel">
@@ -45,6 +66,7 @@ export default function PlacePanel({ place, t, onClose }) {
           {place.title}
         </h2>
         {place.fromTourApi && place.photo && <p className="panel-meta">{t.events.photoCredit}</p>}
+        {place.recommend && <Recommend info={place.recommend} b={t.browse} />}
         <p className="panel-intro" lang="ko">
           {place.introduction}
         </p>
