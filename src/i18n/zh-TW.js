@@ -30,7 +30,6 @@ export default {
   },
   subtitle: {
     here: '[地區]，[天氣] [氣溫]，日落 [時間]',
-    log: '走過的路線自動記錄，下車後清除',
   },
   log: {
     demo: '範例',
@@ -102,11 +101,6 @@ export default {
     info: '路線說明',
   },
   browse: {
-    why: '推薦理由',
-    whyCounts: '近期提及：YouTube {youtube}則、部落格 {blog}篇、新聞 {news}則',
-    whyRising: '近4週搜尋量上升',
-    whyPicked: '精選地點',
-    menu: '推薦菜單',
     talked: '熱議',
     now: '當下濟州',
     indoorOnly: '查看室內體驗活動',

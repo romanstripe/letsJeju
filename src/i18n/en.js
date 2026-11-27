@@ -30,7 +30,6 @@ export default {
   },
   subtitle: {
     here: '[Area], [Weather] [Temp], sunset [Time]',
-    log: 'Your route is saved as you go and erased when you get out',
   },
   log: {
     demo: 'Sample',
@@ -102,11 +101,6 @@ export default {
     info: 'Course notes',
   },
   browse: {
-    why: 'Why it is here',
-    whyCounts: 'Recently mentioned in {youtube} YouTube, {blog} blog and {news} news posts',
-    whyRising: 'Searches rose over the last 4 weeks',
-    whyPicked: 'Hand-picked',
-    menu: 'Recommended menu',
     talked: 'Talked about',
     now: 'Jeju now',
     indoorOnly: 'Explore indoor activities',

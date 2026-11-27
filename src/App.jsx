@@ -96,7 +96,7 @@ export default function App() {
           <ScreenHeader
             title={title}
             highlight={tab === 'here' ? t.here.following : undefined}
-            subtitle={t.subtitle[tab]} // "지금 여기"와 "오늘 기록"에만 있다
+            subtitle={t.subtitle[tab]} // "지금 여기"에만 있다
             extra={passengerButton}
             {...headerProps}
           />

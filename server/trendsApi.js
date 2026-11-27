@@ -2,7 +2,7 @@
 // 저장해 둔 트렌드 후보(언급 많은 순)를 붙여 16곳을 보낸다.
 // 새로 받으려면 node scripts/trend-candidates.mjs. 배포용 서버 함수(api/)는 아직 없다.
 import { readFile } from 'node:fs/promises';
-import { trendMenus, trendPhotos, trendPins } from '../src/data/trendPins.js';
+import { trendPhotos, trendPins } from '../src/data/trendPins.js';
 import { fromTour, toPlace } from './placesApi.js';
 
 const DATA = new URL('../data/trend-candidates.json', import.meta.url);
@@ -10,6 +10,7 @@ const VISIT_DATA = new URL('../data/visitjeju_kr.json', import.meta.url);
 const TOUR_DATA = new URL('../data/tourapi_jeju_ko.json', import.meta.url);
 const COUNT = 16;
 const SKIP_CATEGORY = /해수욕장/; // 트렌드로 보기엔 뜬금없는 분류
+const SKIP_NAME = /스타벅스/; // 어디에나 있는 체인점
 
 const squash = (s) => s.replace(/\s/g, '');
 
@@ -42,7 +43,7 @@ function toTrends(places, saved) {
   // 고정한 곳이 검색 결과에도 있으면 검색량 추세를 가져온다
   const pins = trendPins.map((pin) => {
     const found = places.find((p) => p.placeName === pin.placeName);
-    return { ...pin, trend: found?.trend, sources: found?.sources };
+    return { ...pin, trend: found?.trend };
   });
   for (const place of [...pins, ...places]) {
     const name = squash(place.name ?? place.placeName);
@@ -51,7 +52,7 @@ function toTrends(places, saved) {
       const other = squash(k.name ?? k.placeName);
       return other.includes(name) || name.includes(other) || squash(k.placeName) === squash(place.placeName);
     };
-    if (SKIP_CATEGORY.test(place.category) || kept.some(same)) continue;
+    if (SKIP_CATEGORY.test(place.category) || SKIP_NAME.test(place.placeName) || kept.some(same)) continue;
     kept.push(place);
   }
   return kept.slice(0, COUNT).map((place) => {
@@ -66,8 +67,6 @@ function toTrends(places, saved) {
       lng: place.lng ?? null,
       photo: trendPhotos[place.placeName] ?? null, // 직접 넣은 사진이 우선
       place: findPlace(saved, place) ?? null,
-      sources: place.sources ?? null, // 언급한 영상·글 수
-      menu: trendMenus[place.placeName] ?? null,
     };
   });
 }

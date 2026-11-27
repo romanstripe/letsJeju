@@ -23,6 +23,14 @@ export const trendPins = [
     lat: 33.2494066,
     lng: 126.5667821,
   },
+  {
+    placeName: '중문수두리보말칼국수',
+    placeId: 'CNTS_000000000020621', // 비짓제주
+    category: '한식>칼국수,만두',
+    address: '제주특별자치도 서귀포시 천제연로 192 1층',
+    lat: 33.2515765,
+    lng: 126.4251078,
+  },
 ];
 
 // 저장 데이터에 사진이 없는 곳에 직접 넣는 사진 (가게 바깥 사진 등, 써도 되는 것만).
@@ -34,7 +42,3 @@ export const trendPhotos = {
   '무신사 스탠다드 제주 도남점': '/trend-photos/musinsa.png',
   '픽업카페 애월점': '/trend-photos/pickup.png',
 };
-
-// 상세 화면의 추천 메뉴. 확인한 것만 직접 적는다 (없으면 안 보임).
-// '카드에 보이는 이름': '메뉴, 메뉴'
-export const trendMenus = {};

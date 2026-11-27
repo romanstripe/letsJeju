@@ -196,7 +196,6 @@ export default function BrowseScreen({ lang, t, theme }) {
                 data: {
                   ...(place ?? fromTrend(trend)),
                   ...(trend.photo && { photo: trend.photo, fromTourApi: false }),
-                  recommend: { sources: trend.sources, rising: trend.rising, menu: trend.menu },
                 },
               },
             };

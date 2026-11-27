@@ -30,7 +30,6 @@ export default {
   },
   subtitle: {
     here: '[地区]，[天气] [气温]，日落 [时间]',
-    log: '走过的路线自动记录，下车后清除',
   },
   log: {
     demo: '示例',
@@ -102,11 +101,6 @@ export default {
     info: '路线说明',
   },
   browse: {
-    why: '推荐理由',
-    whyCounts: '近期提及：YouTube {youtube}条、博客 {blog}篇、新闻 {news}条',
-    whyRising: '近4周搜索量上升',
-    whyPicked: '精选地点',
-    menu: '推荐菜单',
     talked: '热议',
     now: '当下济州',
     indoorOnly: '查看室内体验活动',

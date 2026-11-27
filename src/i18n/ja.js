@@ -30,7 +30,6 @@ export default {
   },
   subtitle: {
     here: '[地域]、[天気] [気温]、日の入り [時刻]',
-    log: '通った道は自動で残り、降りると消えます',
   },
   log: {
     demo: 'サンプル',
@@ -102,11 +101,6 @@ export default {
     info: 'コース案内',
   },
   browse: {
-    why: 'おすすめの理由',
-    whyCounts: '最近の言及: YouTube {youtube}件、ブログ {blog}件、ニュース {news}件',
-    whyRising: '直近4週間で検索数が増加',
-    whyPicked: '厳選スポット',
-    menu: 'おすすめメニュー',
     talked: '話題',
     now: '今の済州',
     indoorOnly: '屋内アクティビティを見る',

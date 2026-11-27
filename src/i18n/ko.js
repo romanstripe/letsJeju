@@ -30,7 +30,6 @@ export default {
   },
   subtitle: {
     here: "[지역], [날씨] [기온], 일몰 [시각]",
-    log: "다닌 길은 저절로 남고, 내리면 지워져요",
   },
   log: {
     demo: "예시",
@@ -105,11 +104,6 @@ export default {
     info: "코스 안내",
   },
   browse: {
-    why: '추천 이유',
-    whyCounts: '최근 유튜브 {youtube}건, 블로그 {blog}건, 뉴스 {news}건에서 언급',
-    whyRising: '최근 4주 검색량이 늘었어요',
-    whyPicked: '직접 고른 곳',
-    menu: '추천 메뉴',
     talked: "요즘 언급",
     now: "요즘 제주",
     indoorOnly: "실내 액티비티 살펴보기",
