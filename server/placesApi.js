@@ -43,54 +43,6 @@ function fromTour(item) {
 
 const readJson = async (url) => JSON.parse(await readFile(url, 'utf8'));
 
-// 카카오 키워드 검색. 결과는 저장하지 않고 서버가 켜져 있는 동안만 들고 있는다.
-async function searchKakao(key, name, id, query) {
-  query ??= name.includes('제주') ? name : `제주 ${name}`;
-  const res = await fetch(`https://dapi.kakao.com/v2/local/search/keyword.json?${new URLSearchParams({ query })}`, {
-    headers: { Authorization: `KakaoAK ${key}` },
-    signal: AbortSignal.timeout(10_000),
-  });
-  if (!res.ok) throw new Error(`카카오 검색 HTTP ${res.status}`);
-  const hit = (await res.json()).documents.find((d) => `kakao:${d.id}` === id);
-  if (!hit) return null;
-  const [, city, town] = (hit.road_address_name || hit.address_name).split(' ');
-  return {
-    id,
-    category: 'c4',
-    title: hit.place_name,
-    region: [city, /[읍면]$/.test(town) ? town : null].filter(Boolean),
-    introduction: '',
-    tags: [],
-    lat: Number(hit.y) || null,
-    lng: Number(hit.x) || null,
-    photo: null,
-  };
-}
-
-// 목록의 카카오 항목을 5곳씩 검색해 byId 에 넣는다. 하나라도 실패하면 false.
-async function addKakao(byId, key) {
-  const targets = gourmetList.filter(([, id]) => id?.startsWith('kakao:'));
-  if (!key) {
-    console.error('.env.local 에 KAKAO_REST_KEY 가 없어 카카오 검색을 건너뜁니다.');
-    return false;
-  }
-  let ok = true;
-  for (let i = 0; i < targets.length; i += 5) {
-    await Promise.all(
-      targets.slice(i, i + 5).map(async ([name, id, query]) => {
-        try {
-          const place = await searchKakao(key, name, id, query);
-          if (place) byId.set(id, place);
-        } catch (err) {
-          ok = false;
-          console.error(`${name}: ${err.message}`);
-        }
-      }),
-    );
-  }
-  return ok;
-}
-
 // 직접 받은 목록 밖의 API 식당·카페 판단. TourAPI 는 분류 코드(FD05 = 카페·찻집),
 // 비짓제주는 분류가 없어서 이름과 태그의 낱말로 추정한다.
 const CAFE_NAME = /카페|커피|베이커리|디저트|찻집|티룸|빵집|제과|다방|로스터|cafe|coffee/i;
@@ -132,28 +84,26 @@ function apiFood(visit, tour, listed) {
   return added;
 }
 
-// 맛집 목록. 찾지 못한 곳은 이름만 보내고 unknown 으로 표시한다.
+// 식당·카페 목록. 저장 데이터에 없는 곳('kakao:' ID 포함)은 이름만 보내고 unknown 으로 표시한다.
+// 외부 API 는 부르지 않는다.
 let gourmetCache;
 
-async function handleGourmet(kakaoKey, req, res) {
+async function handleGourmet(req, res) {
   try {
-    let body = gourmetCache;
-    if (!body) {
+    if (!gourmetCache) {
       const [visit, tour] = await Promise.all([readJson(DATA), readJson(TOUR_DATA)]);
       const byId = new Map([
         ...visit.map((item) => [item.contentsid, toPlace(item)]),
         ...tour.map((item) => [`tour:${item.contentid}`, fromTour(item)]),
       ]);
-      const complete = await addKakao(byId, kakaoKey);
       const listed = gourmetList.map(([name, id]) => ({
         ...(byId.get(id) ?? { id: `name:${name}`, title: name, unknown: true }),
         group: cafeNames.has(name) ? 'cafe' : 'restaurant',
       }));
-      body = JSON.stringify([...listed, ...apiFood(visit, tour, listed)]);
-      if (complete) gourmetCache = body; // 검색에 실패했으면 다음 요청 때 다시 시도
+      gourmetCache = JSON.stringify([...listed, ...apiFood(visit, tour, listed)]);
     }
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
-    res.end(body);
+    res.end(gourmetCache);
   } catch (err) {
     res.statusCode = 500;
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');
@@ -179,10 +129,10 @@ async function handle(req, res) {
   }
 }
 
-export default function placesApi({ kakaoKey } = {}) {
+export default function placesApi() {
   const use = (server) => {
     server.middlewares.use('/api/places', handle);
-    server.middlewares.use('/api/gourmet', (req, res) => handleGourmet(kakaoKey, req, res));
+    server.middlewares.use('/api/gourmet', handleGourmet);
   };
   return { name: 'places-api', configureServer: use, configurePreviewServer: use };
 }

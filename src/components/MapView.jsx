@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { MapSwitch } from '../mapSwitch.js';
 import { loadKakao } from '../map/kakao.js';
 import { DARK_MAP_FILTER } from '../config.js';
 
@@ -31,7 +32,13 @@ function pinImage(maps, fillVar, radius) {
   );
 }
 
-export default function MapView({ places, selected, onSelect, theme, errorText }) {
+// 지도를 꺼 두면 안쪽 컴포넌트를 만들지 않아서 카카오를 부르지 않는다
+export default function MapView(props) {
+  const { on, offText } = useContext(MapSwitch);
+  return on ? <KakaoMap {...props} /> : <p className="map-message map-off">{offText}</p>;
+}
+
+function KakaoMap({ places, selected, onSelect, theme, errorText }) {
   const container = useRef(null);
   const [kakaoMap, setKakaoMap] = useState(null);
   const [failed, setFailed] = useState(false);
