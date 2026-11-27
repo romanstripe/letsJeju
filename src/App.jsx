@@ -2,12 +2,11 @@ import { useEffect, useLayoutEffect, useState } from 'react';
 import { DEFAULT_LANG, LANGS, messages } from './i18n/index.js';
 import { load, save } from './storage.js';
 import LanguageScreen from './screens/LanguageScreen.jsx';
-import HomeScreen from './screens/HomeScreen.jsx';
-import MapScreen from './screens/MapScreen.jsx';
-import EventsScreen from './screens/EventsScreen.jsx';
-import ThemeScreen from './screens/ThemeScreen.jsx';
+import HereScreen from './screens/HereScreen.jsx';
+import CourseScreen from './screens/CourseScreen.jsx';
+import BrowseScreen from './screens/BrowseScreen.jsx';
 import EmptyScreen from './screens/EmptyScreen.jsx';
-import TopBar from './components/TopBar.jsx';
+import ScreenHeader from './components/ScreenHeader.jsx';
 import BottomNav from './components/BottomNav.jsx';
 
 export default function App() {
@@ -16,7 +15,7 @@ export default function App() {
     return LANGS.includes(saved) ? saved : null;
   });
   const [theme, setTheme] = useState(() => (load('themeChoice') === 'dark' ? 'dark' : 'light'));
-  const [tab, setTab] = useState('home');
+  const [tab, setTab] = useState('here');
   const [choosing, setChoosing] = useState(false);
 
   const current = lang ?? DEFAULT_LANG;
@@ -35,7 +34,7 @@ export default function App() {
   function chooseLanguage(code) {
     setLang(code);
     save('lang', code);
-    setTab('home');
+    setTab('here');
     setChoosing(false);
   }
 
@@ -55,30 +54,33 @@ export default function App() {
       setTheme(next);
       save('themeChoice', next);
     },
+    translating: tab === 'translate',
+    onTranslate: () => setTab('translate'),
     onChangeLanguage: () => setChoosing(true),
   };
 
+  const title = t.nav[tab];
+
   return (
     <div className="stage">
-      <div className={['map', 'events', 'theme'].includes(tab) ? 'shell shell-tall' : 'shell'}>
-        {tab === 'map' ? (
-          <MapScreen {...headerProps} theme={theme} />
-        ) : tab === 'events' ? (
-          <EventsScreen lang={lang} {...headerProps} />
-        ) : tab === 'theme' ? (
-          <ThemeScreen {...headerProps} />
-        ) : (
-          <>
-            <TopBar lang={lang} {...headerProps} />
-            <main className="content">
-              {tab === 'home' ? (
-                <HomeScreen lang={lang} t={t} onSeeEvents={() => setTab('events')} />
-              ) : (
-                <EmptyScreen title={t.nav[tab]} />
-              )}
-            </main>
-          </>
-        )}
+      <div className="shell">
+        <ScreenHeader
+          title={title}
+          highlight={tab === 'here' ? t.here.following : undefined}
+          subtitle={t.subtitle[tab]}
+          {...headerProps}
+        />
+        <main className="content">
+          {tab === 'here' ? (
+            <HereScreen t={t} theme={theme} onBrowse={() => setTab('browse')} />
+          ) : tab === 'course' ? (
+            <CourseScreen lang={lang} t={t} theme={theme} />
+          ) : tab === 'browse' ? (
+            <BrowseScreen lang={lang} t={t} theme={theme} />
+          ) : (
+            <EmptyScreen title={title} />
+          )}
+        </main>
         <BottomNav t={t} tab={tab} onSelect={setTab} />
       </div>
     </div>

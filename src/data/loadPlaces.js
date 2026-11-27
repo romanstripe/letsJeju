@@ -13,3 +13,18 @@ export function loadPlaces() {
     });
   return request;
 }
+
+let gourmetRequest;
+
+export function loadGourmet() {
+  gourmetRequest ??= fetch('/api/gourmet')
+    .then((res) => {
+      if (!res.ok) throw new Error(`/api/gourmet ${res.status}`);
+      return res.json();
+    })
+    .catch((err) => {
+      gourmetRequest = undefined;
+      throw err;
+    });
+  return gourmetRequest;
+}

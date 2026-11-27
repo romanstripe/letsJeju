@@ -12,6 +12,8 @@ const toEvent = (item) => ({
   address: [item.addr1, item.addr2].filter(Boolean).join(' '),
   tel: item.tel ?? '',
   photo: item.firstimage || null,
+  lat: Number(item.mapy) || null,
+  lng: Number(item.mapx) || null,
 });
 
 async function handle(req, res) {

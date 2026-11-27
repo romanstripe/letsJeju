@@ -1,11 +1,15 @@
 import Icon from './Icon.jsx';
 
-// 오른쪽 위 밝기·언어 버튼 (모든 화면 공통)
-export default function HeaderButtons({ t, onToggleTheme, onChangeLanguage }) {
+// 오른쪽 위 밝기·번역·언어 버튼 (모든 화면 공통)
+export default function HeaderButtons({ t, translating, onToggleTheme, onTranslate, onChangeLanguage }) {
   return (
     <div className="header-buttons">
       <button type="button" className="round-button" aria-label={t.header.toggleTheme} onClick={onToggleTheme}>
         <Icon name="brightness" size={20} />
+      </button>
+      <button type="button" className="pill-button" aria-current={translating ? 'page' : undefined} onClick={onTranslate}>
+        <Icon name="translate" size={20} />
+        {t.nav.translate}
       </button>
       <button
         type="button"

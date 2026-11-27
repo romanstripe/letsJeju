@@ -19,6 +19,27 @@ const PATHS = {
     </>
   ),
   translate: <path d="M3 5h10M8 3v2M11 5c-1 5-4 8-8 10M5 9c2 3 4 5 7 6M12 21l4.5-10L21 21M13.8 17h5.4" />,
+  here: (
+    <>
+      <path d="M12 21c-4.5-4.6-7-8-7-11.5a7 7 0 0114 0c0 3.500-2.500 6.900-7 11.500z" />
+      <circle cx="12" cy="9.500" r="2.500" />
+    </>
+  ),
+  course: (
+    <>
+      <circle cx="6" cy="18" r="2.500" />
+      <circle cx="18" cy="6" r="2.500" />
+      <path d="M8 16l8-8" />
+    </>
+  ),
+  browse: (
+    <>
+      <circle cx="11" cy="11" r="7" />
+      <path d="M16 16l5 5" />
+    </>
+  ),
+  log: <path d="M6 21V4h12l-3 4.500 3 4.500H6" />,
+  play: <path d="M8 5l11 7-11 7z" fill="currentColor" />,
   weather: (
     <>
       <circle cx="8" cy="8" r="3" />

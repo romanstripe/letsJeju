@@ -44,6 +44,7 @@ export default function PlacePanel({ place, t, onClose }) {
         <h2 className="panel-title" lang="ko">
           {place.title}
         </h2>
+        {place.fromTourApi && place.photo && <p className="panel-meta">{t.events.photoCredit}</p>}
         <p className="panel-intro" lang="ko">
           {place.introduction}
         </p>

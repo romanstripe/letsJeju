@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
-import HeaderButtons from '../components/HeaderButtons.jsx';
 import PlacePanel from '../components/PlacePanel.jsx';
-import { loadPlaces } from '../data/loadPlaces.js';
+import { loadGourmet, loadPlaces } from '../data/loadPlaces.js';
 import { themeGroups } from '../data/tagGroups.js';
 
 // 첫 쪽에 보일 테마. 나머지는 "더 보기"에 들어간다.
-const FIRST = ['sunriseSunset', 'oreum', 'sea', 'photo', 'withParents', 'withKids', 'rainyDay', 'olle', 'nature', 'rest', 'cafe'];
+const FIRST = ['sunriseSunset', 'oreum', 'sea', 'photo', 'withParents', 'withKids', 'rainyDay', 'olle', 'nature', 'gourmet', 'cafe'];
+// 'gourmet'(맛집)은 태그가 아니라 직접 받은 목록(src/data/gourmet.js)이다.
 const PAGES = [FIRST, themeGroups.map((g) => g.id).filter((id) => !FIRST.includes(id))];
 
 // 행사(c5)는 날짜가 없어 끝난 것이 섞이므로 뺀다. 순서: 관광지, 테마여행, 음식점, 쇼핑
@@ -30,21 +30,26 @@ function PlaceList({ places, t, onSelect }) {
   const [limit, setLimit] = useState(PAGE_SIZE);
   return (
     <ul className="theme-list">
-      {places.slice(0, limit).map((place) => (
-        <li key={place.id}>
-          <button type="button" className="theme-row" onClick={() => onSelect(place)}>
-            <span className="theme-thumb">
-              {place.photo && <img src={place.photo} alt="" loading="lazy" />}
-            </span>
-            <span className="theme-text">
-              <span className="theme-name" lang="ko">
-                {place.title}
+      {places.slice(0, limit).map((place) => {
+        // 정보가 없는 곳은 눌러도 보여줄 것이 없어서 버튼으로 만들지 않는다
+        const Row = place.unknown ? 'div' : 'button';
+        const press = place.unknown ? {} : { type: 'button', onClick: () => onSelect(place) };
+        return (
+          <li key={place.id}>
+            <Row className="theme-row" {...press}>
+              <span className="theme-thumb">
+                {place.photo && <img src={place.photo} alt="" loading="lazy" />}
               </span>
-              <span className="theme-meta">{summary(place, t)}</span>
-            </span>
-          </button>
-        </li>
-      ))}
+              <span className="theme-text">
+                <span className="theme-name" lang="ko">
+                  {place.title}
+                </span>
+                <span className="theme-meta">{place.unknown ? t.themes.noInfo : summary(place, t)}</span>
+              </span>
+            </Row>
+          </li>
+        );
+      })}
       {places.length > limit && (
         <li>
           <button type="button" className="theme-more" onClick={() => setLimit(limit + PAGE_SIZE)}>
@@ -56,8 +61,9 @@ function PlaceList({ places, t, onSelect }) {
   );
 }
 
-export default function ThemeScreen({ t, onToggleTheme, onChangeLanguage }) {
+export default function ThemeScreen({ t }) {
   const [places, setPlaces] = useState(null);
+  const [gourmet, setGourmet] = useState(null);
   const [failed, setFailed] = useState(false);
   const [theme, setTheme] = useState(FIRST[0]);
   const [page, setPage] = useState(0);
@@ -76,66 +82,81 @@ export default function ThemeScreen({ t, onToggleTheme, onChangeLanguage }) {
     };
   }, []);
 
+  const isGourmet = theme === 'gourmet';
+
+  useEffect(() => {
+    if (!isGourmet) return undefined;
+    let cancelled = false;
+    loadGourmet()
+      .then((list) => !cancelled && setGourmet(list))
+      .catch((err) => {
+        console.error(err.message);
+        if (!cancelled) setFailed(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [isGourmet]);
+
   const matches = useMemo(() => {
+    if (theme === 'gourmet') {
+      // 정보가 있는 곳 먼저, 그 안에서는 이름순
+      return [...(gourmet ?? [])].sort(
+        (a, b) => Boolean(a.unknown) - Boolean(b.unknown) || a.title.localeCompare(b.title, 'ko'),
+      );
+    }
     const { tags } = themeGroups.find((g) => g.id === theme);
     return (places ?? [])
       .filter((p) => p.category in ORDER && tags.some((tag) => p.tags.includes(tag)))
       .sort((a, b) => ORDER[a.category] - ORDER[b.category] || a.title.localeCompare(b.title, 'ko'));
-  }, [places, theme]);
+  }, [places, gourmet, theme]);
+  const loaded = isGourmet ? gourmet : places;
 
   const s = t.themes;
   let notice = null;
   if (failed) notice = t.map.loadError;
-  else if (!places) notice = t.map.loading;
+  else if (!loaded) notice = t.map.loading;
   else if (matches.length === 0) notice = s.empty;
 
   return (
-    <>
-      <header className="topbar">
-        <h1 className="screen-title">{s.title}</h1>
-        <div className="topbar-right">
-          <HeaderButtons t={t} onToggleTheme={onToggleTheme} onChangeLanguage={onChangeLanguage} />
-        </div>
-      </header>
-      <main className="content theme-screen">
-        <div className="theme-grid">
-          {PAGES[page].map((id) => (
-            <button
-              key={id}
-              type="button"
-              className="theme-tile"
-              aria-pressed={theme === id}
-              onClick={() => {
-                setTheme(id);
-                setSelected(null);
-              }}
-            >
-              {t.tags[id]}
-            </button>
-          ))}
-          <button type="button" className="theme-tile theme-tile-more" onClick={() => setPage(1 - page)}>
-            {page === 0 ? s.more : s.back}
+    <div className="theme-screen">
+      <div className="theme-grid">
+        {PAGES[page].map((id) => (
+          <button
+            key={id}
+            type="button"
+            className="theme-tile"
+            aria-pressed={theme === id}
+            onClick={() => {
+              setTheme(id);
+              setSelected(null);
+            }}
+          >
+            {t.tags[id]}
           </button>
-        </div>
-        {selected ? (
-          <PlacePanel place={selected} t={t} onClose={() => setSelected(null)} />
-        ) : (
-          <section className="card theme-panel">
-            <div className="card-header">
-              <h2>{t.tags[theme]}</h2>
-              {places && <span className="chip">{t.map.count.replace('{n}', matches.length.toLocaleString())}</span>}
-            </div>
-            {notice ? (
-              <p className="events-notice" role="status">
-                {notice}
-              </p>
-            ) : (
-              <PlaceList key={theme} places={matches} t={t} onSelect={setSelected} />
-            )}
-            <p className="theme-note">{s.note}</p>
-          </section>
-        )}
-      </main>
-    </>
+        ))}
+        <button type="button" className="theme-tile theme-tile-more" onClick={() => setPage(1 - page)}>
+          {page === 0 ? s.more : s.back}
+        </button>
+      </div>
+      {selected ? (
+        <PlacePanel place={selected} t={t} onClose={() => setSelected(null)} />
+      ) : (
+        <section className="card theme-panel">
+          <div className="card-header">
+            <h2>{t.tags[theme]}</h2>
+            {loaded && <span className="chip">{t.map.count.replace('{n}', matches.length.toLocaleString())}</span>}
+          </div>
+          {notice ? (
+            <p className="events-notice" role="status">
+              {notice}
+            </p>
+          ) : (
+            <PlaceList key={theme} places={matches} t={t} onSelect={setSelected} />
+          )}
+          <p className="theme-note">{isGourmet ? s.gourmetNote : s.note}</p>
+        </section>
+      )}
+    </div>
   );
 }

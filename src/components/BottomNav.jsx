@@ -1,6 +1,6 @@
 import Icon from './Icon.jsx';
 
-const TABS = ['home', 'map', 'events', 'trend', 'theme', 'translate'];
+const TABS = ['here', 'course', 'browse', 'log'];
 
 export default function BottomNav({ t, tab, onSelect }) {
   return (
