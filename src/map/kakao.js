@@ -9,7 +9,7 @@ export function loadKakao() {
       return;
     }
     const script = document.createElement('script');
-    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${key}&libraries=clusterer&autoload=false`;
+    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${key}&autoload=false`;
     script.onload = () => window.kakao.maps.load(() => resolve(window.kakao.maps));
     script.onerror = () => {
       script.remove();

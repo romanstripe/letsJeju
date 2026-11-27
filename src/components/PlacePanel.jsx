@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { MyCourse } from '../myCourse.js';
 import { themeGroups, amenityGroups, detailOnlyTags } from '../data/tagGroups.js';
 
 // alltag 는 tagGroups 를 거쳐서만 보여준다
@@ -19,6 +20,10 @@ function Photo({ place, fallback }) {
 
 export default function PlacePanel({ place, t, onClose }) {
   const m = t.map;
+  const course = useContext(MyCourse);
+  const added = course.has(place.title);
+  const addPlace = () =>
+    course.add({ id: place.id, name: place.title, lat: place.lat, lng: place.lng, photo: place.photo });
 
   return (
     <aside className="card panel">
@@ -48,10 +53,10 @@ export default function PlacePanel({ place, t, onClose }) {
           ))}
         </ul>
       </div>
-      {/* 코스, QR 은 나중 단계 */}
+      {/* QR 은 나중 단계 */}
       <div className="panel-actions">
-        <button type="button" className="primary-button" disabled>
-          {m.addToCourse}
+        <button type="button" className="primary-button" disabled={added} onClick={addPlace}>
+          {added ? t.myCourse.inCourse : m.addToCourse}
         </button>
         <button type="button" className="secondary-button" disabled>
           {m.sendToPhone}

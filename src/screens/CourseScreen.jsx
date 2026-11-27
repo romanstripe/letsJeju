@@ -1,9 +1,10 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useContext, useMemo, useState } from 'react';
 import BrowseMap from '../components/BrowseMap.jsx';
 import Icon from '../components/Icon.jsx';
 import Thumb, { isWholePhoto } from '../components/Thumb.jsx';
 import { courseFilters, courses, DEFAULT_FILTER } from '../data/courses.js';
 import { olleRoutes } from '../data/olleRoutes.js';
+import { MyCourse } from '../myCourse.js';
 
 const noop = () => {};
 
@@ -29,6 +30,7 @@ const cover = (course) => course.stops.find((stop) => stop.photo)?.photo;
 
 export default function CourseScreen({ lang, t, theme }) {
   const c = t.course;
+  const myCourse = useContext(MyCourse);
   const [filter, setFilter] = useState(DEFAULT_FILTER);
   const [courseId, setCourseId] = useState(null);
   const [stopIndex, setStopIndex] = useState(0);
@@ -70,6 +72,17 @@ export default function CourseScreen({ lang, t, theme }) {
   }
 
   const photo = course && cover(course);
+  const start = () =>
+    myCourse.start(
+      course.stops.map((stop, index) => ({
+        id: `${course.id}:${index}`,
+        name: stop.name.ko,
+        lat: stop.lat,
+        lng: stop.lng,
+        photo: stop.photo,
+      })),
+      course.name.ko,
+    );
   // 이 코스에 쓴 사진의 출처 (i 안에 보여준다)
   const credits = [
     ...new Set(
@@ -188,8 +201,8 @@ export default function CourseScreen({ lang, t, theme }) {
               )}
             </div>
             <div className="course-actions">
-              {/* 출발하면 "지금 여기"에 이어지는 동작은 아직 없다 */}
-              <button type="button" className="course-start" disabled>
+              {/* 내 코스에 담는다. "지금 여기"에 보여주는 것은 다음 단계 */}
+              <button type="button" className="course-start" onClick={start}>
                 {c.start}
               </button>
               <button

@@ -113,6 +113,7 @@ h2 {
 
 /* ---------- 공통 틀 ---------- */
 .shell {
+  position: relative;
   height: 100%;
   padding: 24px 28px 10px;
   display: grid;
@@ -146,15 +147,6 @@ h2 {
 .screen-title {
   font-size: 28px;
   line-height: 32px;
-}
-
-.screen-subtitle {
-  display: flex;
-  gap: 14px;
-  margin-top: 2px;
-  font-size: 14px;
-  line-height: 18px;
-  color: var(--sub);
 }
 
 .header-buttons {
@@ -565,12 +557,24 @@ img.is-whole,
   white-space: nowrap;
 }
 
-.me-dot {
-  width: 20px;
-  height: 20px;
-  border: 4px solid var(--card);
+/* 이번 쪽에 없는 곳. 위치만 알려주고 누를 수 없다 */
+.map-dot {
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--card);
   border-radius: 50%;
   background: var(--teal);
+  box-sizing: content-box;
+  pointer-events: none;
+}
+
+/* 현재 위치: 작은 점(.map-dot)과 헷갈리지 않게 색을 반대로 (가운데 밝게, 테두리 청록) */
+.me-dot {
+  width: 22px;
+  height: 22px;
+  border: 6px solid var(--teal);
+  border-radius: 50%;
+  background: var(--card);
   box-shadow: 0 0 0 10px color-mix(in srgb, var(--teal) 25%, transparent);
 }
 
@@ -583,10 +587,6 @@ img.is-whole,
 }
 
 /* ---------- 지금 여기 ---------- */
-.screen-highlight {
-  color: var(--teal);
-}
-
 .here {
   height: 100%;
   display: grid;
@@ -603,12 +603,33 @@ img.is-whole,
 }
 
 .narration-photo {
+  position: relative;
   height: clamp(110px, 21vh, 280px);
   padding: 14px;
   background: var(--chip);
 }
 
+.narration-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.narration-credit {
+  position: absolute;
+  right: 10px;
+  bottom: 8px;
+  padding: 3px 8px;
+  border-radius: 8px;
+  background: var(--scrim);
+  color: var(--on-scrim);
+  font-size: 11px;
+}
+
 .narration-badge {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -640,7 +661,7 @@ img.is-whole,
   line-height: 36px;
 }
 
-.narration-arrival {
+.narration-voice {
   font-size: 14px;
   color: var(--faint);
 }
@@ -669,15 +690,13 @@ img.is-whole,
   height: 5px;
   border-radius: 3px;
   background: var(--line);
+  overflow: hidden;
 }
 
-.more-audio {
-  min-height: 44px;
-  padding: 0 16px;
-  border-radius: 22px;
-  background: var(--chip);
-  font-size: 14px;
-  font-weight: 700;
+.progress-fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
 }
 
 .next-card {
@@ -697,6 +716,9 @@ img.is-whole,
 }
 
 .next-row {
+  width: 100%;
+  min-height: 44px;
+  text-align: left;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -762,14 +784,18 @@ img.is-whole,
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 3px solid transparent;
   border-radius: 20px;
   background: var(--card);
   box-shadow: var(--shadow);
   text-align: left;
 }
 
-.browse-card.is-active {
+/* 테두리는 올레 카드만: 지도에서 보고 있는 구간 표시 */
+.browse-card.is-framed {
+  border: 3px solid transparent;
+}
+
+.browse-card.is-framed.is-active {
   border-color: var(--accent);
 }
 
@@ -1404,6 +1430,21 @@ img.is-whole,
   height: 100%;
 }
 
+.map-locate {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--card);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+
 .map-message {
   position: absolute;
   inset: 0;
@@ -1569,4 +1610,126 @@ button:disabled {
 .panel-close {
   float: right;
   margin: -12px -4px 0 8px;
+}
+
+/* ---------- 코스에 담은 알림 ---------- */
+.course-toast {
+  position: absolute;
+  z-index: 30;
+  left: 50%;
+  bottom: 90px;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100% - 56px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 10px 10px 22px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.course-toast p {
+  margin-right: 8px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.course-toast-count {
+  display: block;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--faint);
+}
+
+.course-toast-go {
+  flex: none;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 22px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.course-toast-close {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  color: var(--faint);
+}
+
+/* ---------- 지금 여기: 담은 코스 ---------- */
+.my-course-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.next-card .my-course-name {
+  font-size: 17px;
+  color: var(--text);
+}
+
+.my-course-edit {
+  flex: none;
+  min-width: 64px;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 22px;
+  background: var(--chip);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.next-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.next-item .next-row {
+  flex: 1;
+  min-width: 0;
+}
+
+.next-number {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--scrim);
+  color: var(--on-scrim);
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+}
+
+.next-own {
+  margin-right: 8px;
+  color: var(--teal);
+  font-weight: 700;
+}
+
+.next-tools {
+  display: flex;
+  gap: 4px;
+}
+
+.next-tools button {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--chip);
+  font-size: 18px;
 }

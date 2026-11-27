@@ -15,6 +15,13 @@ const PATHS = {
       <path d="M8 16l8-8" />
     </>
   ),
+  locate: (
+    <>
+      <circle cx="12" cy="12" r="7" />
+      <circle cx="12" cy="12" r="2.500" fill="currentColor" />
+      <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+    </>
+  ),
   browse: (
     <>
       <circle cx="11" cy="11" r="7" />
@@ -23,6 +30,7 @@ const PATHS = {
   ),
   log: <path d="M6 21V4h12l-3 4.500 3 4.500H6" />,
   play: <path d="M8 5l11 7-11 7z" fill="currentColor" />,
+  pause: <path d="M8 5h3v14H8zM13 5h3v14h-3z" fill="currentColor" />,
   mic: (
     <>
       <rect x="9" y="3" width="6" height="11" rx="3" />

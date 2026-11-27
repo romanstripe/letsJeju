@@ -1,7 +1,13 @@
+import { useContext } from 'react';
 import { formatPeriod } from '../data/events.js';
+import { MyCourse } from '../myCourse.js';
 
 export default function EventDetail({ event, lang, t, onClose }) {
   const e = t.events;
+  const course = useContext(MyCourse);
+  const added = course.has(event.title);
+  const addEvent = () =>
+    course.add({ id: `event:${event.id}`, name: event.title, lat: event.lat, lng: event.lng, photo: event.photo });
   return (
     <aside className="card events-column event-detail">
       <div className="card-header">
@@ -28,8 +34,8 @@ export default function EventDetail({ event, lang, t, onClose }) {
           <p className="event-note">{t.home.eventNote}</p>
         </div>
       </div>
-      <button type="button" className="secondary-button" disabled>
-        {t.map.addToCourse}
+      <button type="button" className="secondary-button" disabled={added} onClick={addEvent}>
+        {added ? t.myCourse.inCourse : t.map.addToCourse}
       </button>
     </aside>
   );

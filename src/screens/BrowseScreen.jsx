@@ -79,11 +79,11 @@ function arrange(items, view, here) {
   return { list: [...inView, ...rest], visible: inView.length };
 }
 
-function Card({ item, number, active, onOpen, driveLabel }) {
+function Card({ item, number, framed, active, onOpen, driveLabel }) {
   const Box = item.open ? 'button' : 'div';
   const press = item.open ? { type: 'button', onClick: onOpen } : {};
   return (
-    <Box className={['browse-card', active && 'is-active', item.wrap && 'is-wrap'].filter(Boolean).join(' ')} {...press}>
+    <Box className={['browse-card', framed && 'is-framed', active && 'is-active', item.wrap && 'is-wrap'].filter(Boolean).join(' ')} {...press}>
       <Thumb photo={item.photo} className="browse-photo">
         {number && <span className="browse-number">{number}</span>}
         {item.badge && <span className="browse-badge">{item.badge}</span>}
@@ -214,19 +214,22 @@ export default function BrowseScreen({ lang, t, theme }) {
       const ordered = monthEvents.length
         ? [monthEvents[0], ...top, ...season, ...monthEvents.slice(1), ...more]
         : [...season, ...top, ...more];
-      return { items: ordered.slice(0, NOW_COUNT), notice: message };
+      return { items: ordered, notice: message };
     }
 
     if (button === 'olle') {
       return {
         items: olleSections(here).map((section) => ({
           id: section.id,
-          name: b.olleName.replace('{n}', section.number).replace('{start}', section.start),
-          meta: b.olleMeta.replace('{km}', section.km),
+          name: b.olleName.replace('{n}', section.number).replace('{title}', section.title),
+          meta: b.olleMeta
+            .replace('{d}', (section.distance / 1000).toFixed(1))
+            .replace('{km}', section.km)
+            .replace('{hours}', section.hours),
           wrap: true,
           badge: section.official ? null : b.olleWalk,
           photo: section.photo,
-          credit: t.events.photoCredit,
+          credit: t.events.visitCredit,
           lat: section.lat,
           lng: section.lng,
           line: section.line,
@@ -253,11 +256,14 @@ export default function BrowseScreen({ lang, t, theme }) {
     return { items: sorted.map(placeItem), notice: sorted.length === 0 ? t.themes.empty : null };
   }, [button, indoor, here, places, food, trendList, events, eventsFailed, today, month, lang, t, b]);
 
-  // 올레(이미 가까운 순)와 요즘 제주(정한 순서)는 지도 범위와 상관없이 모두 그대로 보여준다
-  const { list, visible } = useMemo(
-    () => (isOlle || isNow ? { list: items, visible: items.length } : arrange(items, view, here)),
-    [isOlle, isNow, items, view, here],
-  );
+  // 올레(이미 가까운 순)는 지도 범위와 상관없이 모두 보여준다.
+  // 요즘 제주는 지도를 움직이기 전에는 정한 순서대로, 움직이면 다른 탭처럼 보이는 범위의 곳을 보여준다.
+  const { list, visible } = useMemo(() => {
+    if (isOlle) return { list: items, visible: items.length };
+    if (!isNow) return arrange(items, view, here);
+    const result = view?.moved ? arrange(items, view, here) : { list: items, visible: items.length };
+    return { list: result.list.slice(0, NOW_COUNT), visible: Math.min(result.visible, NOW_COUNT) };
+  }, [isOlle, isNow, items, view, here]);
   const pageCount = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
   const current = Math.min(page, pageCount - 1);
   const first = current * PAGE_SIZE;
@@ -276,29 +282,33 @@ export default function BrowseScreen({ lang, t, theme }) {
   const pins = useMemo(() => {
     if (isOlle) return [];
     const located = shown.filter((i) => i.lat && i.lng);
-    const activeId = located.some((i) => i.id === selected?.id) ? selected.id : located[0]?.id;
     return located.map((i, index) => ({
       id: i.id,
       number: index + 1,
       lat: i.lat,
       lng: i.lng,
       photo: i.photo,
-      active: i.id === activeId,
+      active: i.id === selected?.id, // 상세를 연 곳만 강조
     }));
   }, [isOlle, shown, selected]);
 
-  // 이번 쪽에 없는 나머지 곳은 지도에 숫자 묶음으로
+  // 이번 쪽에 없는 나머지 곳은 지도에 작은 점으로
   const others = useMemo(() => {
     if (isOlle) return undefined;
     const onPage = new Set(shown.map((i) => i.id));
     return list.slice(0, visible).filter((i) => !onPage.has(i.id) && i.lat && i.lng);
   }, [isOlle, list, visible, shown]);
 
-  // 지도를 움직이면 첫 쪽부터 다시
-  const handleView = useCallback((next) => {
-    setView(next);
-    setPage(0);
-  }, []);
+  // 지도를 움직이면 첫 쪽부터 다시.
+  // 올레는 목록이 지도 범위와 상관없고, 쪽을 넘기면 지도가 그 구간으로 옮겨 가므로 쪽을 되돌리지 않는다.
+  // (isOlle 가 바뀔 때는 아래 BrowseMap 의 key 도 바뀌어 지도를 새로 만든다)
+  const handleView = useCallback(
+    (next) => {
+      setView(next);
+      if (!isOlle) setPage(0);
+    },
+    [isOlle],
+  );
   const handlePick = useCallback(
     (id) => {
       const item = items.find((i) => i.id === id);
@@ -321,7 +331,7 @@ export default function BrowseScreen({ lang, t, theme }) {
       .replace('{from}', first + 1)
       .replace('{to}', Math.min(first + PAGE_SIZE, visible))
       .replace('{total}', visible);
-  } else if (isNow) {
+  } else if (isNow && !view?.moved) {
     order = null; // 가까운 순이 아니다
   } else if (view && first < visible) {
     order = (view.moved ? b.order : b.orderHere)
@@ -357,6 +367,7 @@ export default function BrowseScreen({ lang, t, theme }) {
           others={others}
           sections={sections}
           me={here}
+          locateLabel={b.locate}
           level={isNow ? undefined : NEARBY_MAP_LEVEL} // 요즘 제주는 섬 전체
           onPick={handlePick}
           onView={handleView}
@@ -403,7 +414,8 @@ export default function BrowseScreen({ lang, t, theme }) {
                   <Card
                     item={item}
                     number={isOlle ? shown.indexOf(item) + 1 : pin?.number}
-                    active={isOlle ? item.id === activeOlle?.id : pin?.active}
+                    framed={isOlle}
+                    active={isOlle && item.id === activeOlle?.id}
                     driveLabel={t.course.modes.car}
                     onOpen={() => handlePick(item.id)}
                   />

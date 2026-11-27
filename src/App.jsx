@@ -2,6 +2,9 @@ import { useEffect, useLayoutEffect, useState } from 'react';
 import { DEFAULT_LANG, LANGS, messages } from './i18n/index.js';
 import Icon from './components/Icon.jsx';
 import { MapSwitch } from './mapSwitch.js';
+import { MyCourse, useMyCourse } from './myCourse.js';
+import { useCurrentLocation } from './location.js';
+import CourseNotice from './components/CourseNotice.jsx';
 import { load, save } from './storage.js';
 import LanguageScreen from './screens/LanguageScreen.jsx';
 import HereScreen from './screens/HereScreen.jsx';
@@ -25,6 +28,8 @@ export default function App() {
   const [choosing, setChoosing] = useState(false);
   const [mapOn, setMapOn] = useState(() => load('mapChoice') !== 'off');
   const [passengerChoice, setPassengerChoice] = useState(null);
+
+  const myCourse = useMyCourse(useCurrentLocation());
 
   const current = lang ?? DEFAULT_LANG;
   const t = messages[current];
@@ -92,29 +97,26 @@ export default function App() {
   return (
     <div className="stage">
       <MapSwitch value={{ on: mapOn, offText: t.header.mapDisabled }}>
-        <div className="shell">
-          <ScreenHeader
-            title={title}
-            highlight={tab === 'here' ? t.here.following : undefined}
-            subtitle={t.subtitle[tab]} // "지금 여기"에만 있다
-            extra={passengerButton}
-            {...headerProps}
-          />
-          <main className="content">
-            {tab === 'here' ? (
-              <HereScreen t={t} theme={theme} />
-            ) : tab === 'course' ? (
-              <CourseScreen lang={lang} t={t} theme={theme} />
-            ) : tab === 'browse' ? (
-              <BrowseScreen lang={lang} t={t} theme={theme} />
-            ) : tab === 'log' ? (
-              <LogScreen t={t} theme={theme} />
-            ) : (
-              <TranslateScreen key={passenger} passenger={passenger} />
-            )}
-          </main>
-          <BottomNav t={t} tab={tab} onSelect={setTab} />
-        </div>
+        <MyCourse value={myCourse.actions}>
+          <div className="shell">
+            <ScreenHeader title={title} extra={passengerButton} {...headerProps} />
+            <main className="content">
+              {tab === 'here' ? (
+                <HereScreen t={t} theme={theme} />
+              ) : tab === 'course' ? (
+                <CourseScreen lang={lang} t={t} theme={theme} />
+              ) : tab === 'browse' ? (
+                <BrowseScreen lang={lang} t={t} theme={theme} />
+              ) : tab === 'log' ? (
+                <LogScreen t={t} theme={theme} />
+              ) : (
+                <TranslateScreen key={passenger} passenger={passenger} />
+              )}
+            </main>
+            <CourseNotice course={myCourse} t={t} onGo={tab === 'here' ? undefined : () => setTab('here')} />
+            <BottomNav t={t} tab={tab} onSelect={setTab} />
+          </div>
+        </MyCourse>
       </MapSwitch>
     </div>
   );
