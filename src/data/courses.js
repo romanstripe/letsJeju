@@ -2,6 +2,8 @@
 // 좌표는 저장해 둔 비짓제주, TourAPI 데이터에서 이름으로 맞췄다. 좌표가 없는 지점은 핀 없이 순서에만 나온다.
 //
 // 글자는 { ko, en, ja, 'zh-CN', 'zh-TW' }, 없는 언어는 ko 를 보여줌 (지금은 ko 만 있음).
+// photo: 비짓제주, TourAPI 사진 주소 또는 비짓제주에서 내려받아 넣은 사진(public/course-photos/). 화면에 출처를 표시한다.
+// 토산포구 좌표는 주소(표선면 토산리 30-3)를 카카오 주소 검색으로 한 번 바꾼 값.
 // description 과 stop.note 는 지금 화면에 보여주지 않는다.
 // stop: { name, note, move: { mode: 'car' | 'walk' | 'ferry', minutes }, time, stay: 분, withDrive, lat, lng }
 // course: { id, filters, name, summary, description, minutes(전체 분), trail: { km, hours, level }, tip, stops }
@@ -32,7 +34,8 @@ export const courses = [
         "time": "10:00~10:40",
         "stay": 40,
         "lat": 33.45245,
-        "lng": 126.92458
+        "lng": 126.92458,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/d5b7e9a3-8cfb-41cf-9623-9b15651d4c55.webp"
       },
       {
         "name": {
@@ -48,7 +51,8 @@ export const courses = [
         "time": "10:50~12:10",
         "stay": 80,
         "lat": 33.46215,
-        "lng": 126.93642
+        "lng": 126.93642,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202409/20/464d6099-295a-4e60-bd93-9e65388f4d0d.webp"
       },
       {
         "name": {
@@ -64,7 +68,8 @@ export const courses = [
         "time": "12:20~13:20",
         "stay": 60,
         "lat": 33.42421,
-        "lng": 126.93111
+        "lng": 126.93111,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/ddc8e75e-c2c6-482e-b3eb-3c0468973a88.webp"
       },
       {
         "name": {
@@ -80,7 +85,8 @@ export const courses = [
         "time": "13:30~14:50",
         "stay": 80,
         "lat": 33.42369,
-        "lng": 126.9296
+        "lng": 126.9296,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202408/16/f18ca648-b42f-4209-b87a-2410b8da656d.webp"
       },
       {
         "name": {
@@ -96,7 +102,8 @@ export const courses = [
         "time": "15:05~15:55",
         "stay": 50,
         "lat": 33.36682,
-        "lng": 126.83914
+        "lng": 126.83914,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202410/17/29d0b439-46d6-46e0-ac82-120b661b3c3a.webp"
       },
       {
         "name": {
@@ -112,7 +119,8 @@ export const courses = [
         "time": "16:15~17:00",
         "stay": 45,
         "lat": 33.32723,
-        "lng": 126.8381
+        "lng": 126.8381,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202110/29/75201e85-e5f0-498a-986a-043dac98d1fb.webp"
       },
       {
         "name": {
@@ -128,7 +136,8 @@ export const courses = [
         "time": "17:10~18:00",
         "stay": 50,
         "lat": 33.35353,
-        "lng": 126.77182
+        "lng": 126.77182,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201807/03/c2e2b1dd-a2b1-4424-b93a-f116a191c14a.webp"
       }
     ]
   },
@@ -158,7 +167,8 @@ export const courses = [
         "time": "10:00~10:40",
         "stay": 40,
         "lat": 33.39,
-        "lng": 126.23591
+        "lng": 126.23591,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202110/25/120296bb-0959-4579-ad37-c559e95b434c.webp"
       },
       {
         "name": {
@@ -174,7 +184,8 @@ export const courses = [
         "time": "10:50~11:45",
         "stay": 55,
         "lat": 33.39248,
-        "lng": 126.23899
+        "lng": 126.23899,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202408/27/6b6dc9c4-5466-493e-98e5-580dbf18eefc.webp"
       },
       {
         "name": {
@@ -190,7 +201,8 @@ export const courses = [
         "time": "11:55~12:55",
         "stay": 60,
         "lat": 33.40928,
-        "lng": 126.25884
+        "lng": 126.25884,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202203/11/daa7e2fc-971e-43b8-865a-1fe943d1aad4.webp"
       },
       {
         "name": {
@@ -206,7 +218,8 @@ export const courses = [
         "time": "13:05~14:35",
         "stay": 90,
         "lat": 33.38799,
-        "lng": 126.23978
+        "lng": 126.23978,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202205/30/58ce2ef7-c996-462e-aa99-eb613c01e95a.webp"
       },
       {
         "name": {
@@ -222,7 +235,8 @@ export const courses = [
         "time": "14:45~15:30",
         "stay": 45,
         "lat": 33.40706,
-        "lng": 126.26557
+        "lng": 126.26557,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201903/25/37f2db4e-ea74-4c84-8146-f63471ae242d.webp"
       },
       {
         "name": {
@@ -238,7 +252,8 @@ export const courses = [
         "time": "15:55~16:50",
         "stay": 55,
         "lat": 33.34303,
-        "lng": 126.17217
+        "lng": 126.17217,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202111/22/94f00b31-8791-404f-9b32-981969fa9204.webp"
       },
       {
         "name": {
@@ -254,7 +269,8 @@ export const courses = [
         "time": "17:00~18:00",
         "stay": 60,
         "lat": 33.33613,
-        "lng": 126.19893
+        "lng": 126.19893,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202002/20/4bcc00d5-6bc5-4745-b461-0c25f7011f80.webp"
       }
     ]
   },
@@ -284,7 +300,8 @@ export const courses = [
         "time": "10:00~10:55",
         "stay": 55,
         "lat": 33.25409,
-        "lng": 126.6223
+        "lng": 126.6223,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202410/16/54503744-a4b3-4e68-b819-47e67df59100.webp"
       },
       {
         "name": {
@@ -300,7 +317,8 @@ export const courses = [
         "time": "11:10~11:50",
         "stay": 40,
         "lat": 33.23927,
-        "lng": 126.60689
+        "lng": 126.60689,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201907/17/3dfdaafa-6623-4a49-915e-a7e4f7c659fe.webp"
       },
       {
         "name": {
@@ -316,7 +334,8 @@ export const courses = [
         "time": "11:55~12:55",
         "stay": 60,
         "lat": 33.2409,
-        "lng": 126.61069
+        "lng": 126.61069,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202301/27/bfba8cc8-895e-4882-830d-b22735a6cab3.webp"
       },
       {
         "name": {
@@ -332,7 +351,8 @@ export const courses = [
         "time": "13:05~14:00",
         "stay": 55,
         "lat": 33.24485,
-        "lng": 126.5718
+        "lng": 126.5718,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202409/25/1607868f-80ba-4f86-94cd-77a8c7d52cd6.webp"
       },
       {
         "name": {
@@ -348,7 +368,8 @@ export const courses = [
         "time": "14:05~14:55",
         "stay": 50,
         "lat": 33.24555,
-        "lng": 126.56441
+        "lng": 126.56441,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202409/24/d335b597-8858-4fcb-8ba9-c4792127f4fb.webp"
       },
       {
         "name": {
@@ -364,7 +385,8 @@ export const courses = [
         "time": "15:00~15:50",
         "stay": 50,
         "lat": 33.24449,
-        "lng": 126.5639
+        "lng": 126.5639,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/3a3cd1f1-b513-4535-be87-eadca0bcbe16.webp"
       },
       {
         "name": {
@@ -380,7 +402,8 @@ export const courses = [
         "time": "16:00~16:55",
         "stay": 55,
         "lat": 33.24472,
-        "lng": 126.55982
+        "lng": 126.55982,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/c87fb80d-98e3-4911-ae75-787fee3f0f35.webp"
       },
       {
         "name": {
@@ -396,7 +419,8 @@ export const courses = [
         "time": "17:05~18:00",
         "stay": 55,
         "lat": 33.24852,
-        "lng": 126.55936
+        "lng": 126.55936,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201811/01/a361a387-cccf-40fa-9914-56840aa85fd7.webp"
       }
     ]
   },
@@ -426,7 +450,8 @@ export const courses = [
         "time": "10:00~10:45",
         "stay": 45,
         "lat": 33.54273,
-        "lng": 126.66909
+        "lng": 126.66909,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202408/20/3d61ccf2-3fa8-422a-bc40-8cbafe20c52d.webp"
       },
       {
         "name": {
@@ -442,7 +467,8 @@ export const courses = [
         "time": "10:50~11:50",
         "stay": 60,
         "lat": 33.53441,
-        "lng": 126.63425
+        "lng": 126.63425,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201807/09/44e6831f-d009-48bd-9ace-34375b775c44.webp"
       },
       {
         "name": {
@@ -458,7 +484,8 @@ export const courses = [
         "time": "12:05~13:05",
         "stay": 60,
         "lat": 33.55697,
-        "lng": 126.72074
+        "lng": 126.72074,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202111/05/987bb57c-15ac-412a-b821-e248598f0db7.webp"
       },
       {
         "name": {
@@ -474,7 +501,8 @@ export const courses = [
         "time": "13:20~14:30",
         "stay": 70,
         "lat": 33.53658,
-        "lng": 126.7724
+        "lng": 126.7724,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202409/09/a56a5a58-59e0-4da0-8d4a-6f18d0043d93.webp"
       },
       {
         "name": {
@@ -490,7 +518,8 @@ export const courses = [
         "time": "14:40~15:35",
         "stay": 55,
         "lat": 33.55505,
-        "lng": 126.79823
+        "lng": 126.79823,
+        "photo": "https://tong.visitkorea.or.kr/cms/resource/93/4075293_image3_1.jpg"
       },
       {
         "name": {
@@ -506,7 +535,8 @@ export const courses = [
         "time": "15:40~16:30",
         "stay": 50,
         "lat": 33.54681,
-        "lng": 126.78381
+        "lng": 126.78381,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/15efc6db-2806-427c-813e-37fb8d78f492.webp"
       },
       {
         "name": {
@@ -522,7 +552,8 @@ export const courses = [
         "time": "16:45~17:00",
         "stay": 15,
         "lat": 33.5253,
-        "lng": 126.86128
+        "lng": 126.86128,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202407/24/26a940f4-8517-437c-bef2-88be65dfd157.webp"
       },
       {
         "name": {
@@ -538,7 +569,8 @@ export const courses = [
         "time": "17:05~18:00",
         "stay": 55,
         "lat": 33.52465,
-        "lng": 126.85387
+        "lng": 126.85387,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202110/26/e39c3831-1025-48c9-b1f4-99659540953a.webp"
       }
     ]
   },
@@ -566,7 +598,8 @@ export const courses = [
         },
         "stay": 80,
         "lat": 33.23022,
-        "lng": 126.30895
+        "lng": 126.30895,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202111/12/2cee35af-0c35-4448-b32d-179bf66c2dd1.webp"
       },
       {
         "name": {
@@ -581,7 +614,8 @@ export const courses = [
         },
         "stay": 50,
         "lat": 33.23343,
-        "lng": 126.31374
+        "lng": 126.31374,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202409/25/e7b66d4c-0ec8-48aa-b700-51d923282b9c.webp"
       },
       {
         "name": {
@@ -596,7 +630,8 @@ export const courses = [
         },
         "stay": 60,
         "lat": 33.23923,
-        "lng": 126.31929
+        "lng": 126.31929,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202410/15/780ecdba-a31b-4d2e-873d-91ee1c717b11.webp"
       }
     ]
   },
@@ -624,7 +659,8 @@ export const courses = [
         },
         "stay": 60,
         "lat": 33.52465,
-        "lng": 126.85387
+        "lng": 126.85387,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202110/26/e39c3831-1025-48c9-b1f4-99659540953a.webp"
       },
       {
         "name": {
@@ -639,7 +675,8 @@ export const courses = [
         },
         "stay": 45,
         "lat": 33.5253,
-        "lng": 126.86128
+        "lng": 126.86128,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202407/24/26a940f4-8517-437c-bef2-88be65dfd157.webp"
       },
       {
         "name": {
@@ -654,7 +691,8 @@ export const courses = [
         },
         "stay": 60,
         "lat": 33.52448,
-        "lng": 126.86187
+        "lng": 126.86187,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202203/11/309c8b07-e10f-4e45-903c-652fbb78deff.webp"
       }
     ]
   },
@@ -682,7 +720,8 @@ export const courses = [
         },
         "stay": 60,
         "lat": 33.46484,
-        "lng": 126.32011
+        "lng": 126.32011,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202506/09/3c1c26ca-9c64-4b4b-9e64-6fe3aa58565f.webp"
       },
       {
         "name": {
@@ -697,7 +736,8 @@ export const courses = [
         },
         "stay": 40,
         "lat": 33.45906,
-        "lng": 126.3106
+        "lng": 126.3106,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/f1bd503b-f934-47b5-8e0c-63f282240843.webp"
       },
       {
         "name": {
@@ -712,7 +752,8 @@ export const courses = [
         },
         "stay": 60,
         "lat": 33.456,
-        "lng": 126.30891
+        "lng": 126.30891,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202201/10/77edc8dd-773e-400e-96b8-dfd56e0fd758.webp"
       }
     ]
   },
@@ -740,7 +781,8 @@ export const courses = [
         },
         "stay": 60,
         "lat": 33.24265,
-        "lng": 126.41892
+        "lng": 126.41892,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202112/07/458b8b95-8eaf-48fd-af18-ca10f6e35c6d.webp"
       },
       {
         "name": {
@@ -755,7 +797,8 @@ export const courses = [
         },
         "stay": 40,
         "lat": 33.24352,
-        "lng": 126.43522
+        "lng": 126.43522,
+        "photo": "/course-photos/meal-daepo-port.jpg"
       },
       {
         "name": {
@@ -770,7 +813,8 @@ export const courses = [
         },
         "stay": 60,
         "lat": 33.2374,
-        "lng": 126.43671
+        "lng": 126.43671,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202407/23/68fd740b-40c3-4bcc-a861-67700ecbc2b4.webp"
       }
     ]
   },
@@ -799,7 +843,8 @@ export const courses = [
         },
         "stay": 20,
         "lat": 33.46703,
-        "lng": 126.3379
+        "lng": 126.3379,
+        "photo": "https://tong.visitkorea.or.kr/cms/resource/20/3589220_image3_1.jpg"
       },
       {
         "name": {
@@ -815,7 +860,8 @@ export const courses = [
         "stay": 35,
         "withDrive": true,
         "lat": 33.47822,
-        "lng": 126.36656
+        "lng": 126.36656,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202110/25/08f0e41c-8741-4820-9969-77261804192d.webp"
       },
       {
         "name": {
@@ -830,7 +876,8 @@ export const courses = [
         },
         "stay": 25,
         "lat": 33.45906,
-        "lng": 126.3106
+        "lng": 126.3106,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/f1bd503b-f934-47b5-8e0c-63f282240843.webp"
       },
       {
         "name": {
@@ -845,7 +892,8 @@ export const courses = [
         },
         "stay": 50,
         "lat": 33.456,
-        "lng": 126.30891
+        "lng": 126.30891,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202201/10/77edc8dd-773e-400e-96b8-dfd56e0fd758.webp"
       },
       {
         "name": {
@@ -860,7 +908,8 @@ export const courses = [
         },
         "stay": 35,
         "lat": 33.45122,
-        "lng": 126.3058
+        "lng": 126.3058,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202110/25/51ef76f8-3171-4261-8423-a58df63d40aa.webp"
       }
     ]
   },
@@ -889,7 +938,8 @@ export const courses = [
         },
         "stay": 35,
         "lat": 33.55702,
-        "lng": 126.75988
+        "lng": 126.75988,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202407/15/fc931694-3362-4945-b566-be8d926476d7.webp"
       },
       {
         "name": {
@@ -904,7 +954,8 @@ export const courses = [
         },
         "stay": 35,
         "lat": 33.55505,
-        "lng": 126.79823
+        "lng": 126.79823,
+        "photo": "https://tong.visitkorea.or.kr/cms/resource/93/4075293_image3_1.jpg"
       },
       {
         "name": {
@@ -919,7 +970,8 @@ export const courses = [
         },
         "stay": 50,
         "lat": 33.54681,
-        "lng": 126.78381
+        "lng": 126.78381,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/15efc6db-2806-427c-813e-37fb8d78f492.webp"
       },
       {
         "name": {
@@ -934,7 +986,8 @@ export const courses = [
         },
         "stay": 35,
         "lat": 33.5253,
-        "lng": 126.86128
+        "lng": 126.86128,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202407/24/26a940f4-8517-437c-bef2-88be65dfd157.webp"
       },
       {
         "name": {
@@ -949,7 +1002,8 @@ export const courses = [
         },
         "stay": 35,
         "lat": 33.5183,
-        "lng": 126.9017
+        "lng": 126.9017,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202407/23/1b0be13e-4828-4c77-a104-0116943f3cb3.webp"
       }
     ]
   },
@@ -978,7 +1032,8 @@ export const courses = [
         },
         "stay": 25,
         "lat": 33.23661,
-        "lng": 126.31289
+        "lng": 126.31289,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202410/16/5eedc065-a33e-4729-89c9-776c52af62c0.webp"
       },
       {
         "name": {
@@ -993,7 +1048,8 @@ export const courses = [
         },
         "stay": 50,
         "lat": 33.23923,
-        "lng": 126.31929
+        "lng": 126.31929,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202410/15/780ecdba-a31b-4d2e-873d-91ee1c717b11.webp"
       },
       {
         "name": {
@@ -1009,7 +1065,8 @@ export const courses = [
         "stay": 40,
         "withDrive": true,
         "lat": 33.21973,
-        "lng": 126.29425
+        "lng": 126.29425,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202111/15/465a7e6f-5d83-4ed2-9fc5-4eeaa7ca7857.webp"
       },
       {
         "name": {
@@ -1024,7 +1081,8 @@ export const courses = [
         },
         "stay": 35,
         "lat": 33.20771,
-        "lng": 126.29099
+        "lng": 126.29099,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202408/19/d8c74606-b126-4b83-82ec-f088ca97b315.webp"
       },
       {
         "name": {
@@ -1039,7 +1097,8 @@ export const courses = [
         },
         "stay": 25,
         "lat": 33.21892,
-        "lng": 126.24864
+        "lng": 126.24864,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201908/06/8b36910c-5b9b-4d46-8794-91613b0f880c.webp"
       }
     ]
   },
@@ -1068,7 +1127,8 @@ export const courses = [
         },
         "stay": 30,
         "lat": 33.39894,
-        "lng": 126.67927
+        "lng": 126.67927,
+        "photo": "https://tong.visitkorea.or.kr/cms/resource/18/4072718_image3_1.jpg"
       },
       {
         "name": {
@@ -1083,7 +1143,8 @@ export const courses = [
         },
         "stay": 60,
         "lat": 33.43162,
-        "lng": 126.69001
+        "lng": 126.69001,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/a7b4a973-40e9-44e6-87d9-46a4c4f3b367.webp"
       },
       {
         "name": {
@@ -1099,7 +1160,8 @@ export const courses = [
         "stay": 25,
         "withDrive": true,
         "lat": 33.47106,
-        "lng": 126.78093
+        "lng": 126.78093,
+        "photo": "/course-photos/drive-songdang-path.jpg"
       },
       {
         "name": {
@@ -1114,7 +1176,8 @@ export const courses = [
         },
         "stay": 50,
         "lat": 33.47184,
-        "lng": 126.78575
+        "lng": 126.78575,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202301/26/b5cd3aba-c78f-4204-b4a9-9766dec83eb4.webp"
       },
       {
         "name": {
@@ -1129,7 +1192,8 @@ export const courses = [
         },
         "stay": 30,
         "lat": 33.49132,
-        "lng": 126.81139
+        "lng": 126.81139,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202410/16/eda139ae-6a88-486f-b2df-f23ecca6326e.webp"
       }
     ]
   },
@@ -1165,7 +1229,8 @@ export const courses = [
         },
         "stay": 30,
         "lat": 33.47724,
-        "lng": 126.89598
+        "lng": 126.89598,
+        "photo": "/course-photos/olle1-siheung-start.jpg"
       },
       {
         "name": {
@@ -1179,7 +1244,8 @@ export const courses = [
         },
         "stay": 60,
         "lat": 33.47951,
-        "lng": 126.88415
+        "lng": 126.88415,
+        "photo": "/course-photos/olle1-malmi.jpg"
       },
       {
         "name": {
@@ -1193,7 +1259,8 @@ export const courses = [
         },
         "stay": 100,
         "lat": 33.48798,
-        "lng": 126.88157
+        "lng": 126.88157,
+        "photo": "/course-photos/olle1-aloreum.jpg"
       },
       {
         "name": {
@@ -1207,7 +1274,8 @@ export const courses = [
         },
         "stay": 60,
         "lat": 33.46892,
-        "lng": 126.92328
+        "lng": 126.92328,
+        "photo": "/course-photos/olle1-seongsan-road.jpg"
       },
       {
         "name": {
@@ -1221,7 +1289,8 @@ export const courses = [
         },
         "stay": 20,
         "lat": 33.45245,
-        "lng": 126.92458
+        "lng": 126.92458,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/d5b7e9a3-8cfb-41cf-9623-9b15651d4c55.webp"
       }
     ]
   },
@@ -1257,7 +1326,8 @@ export const courses = [
         },
         "stay": 30,
         "lat": 33.25409,
-        "lng": 126.6223
+        "lng": 126.6223,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202410/16/54503744-a4b3-4e68-b819-47e67df59100.webp"
       },
       {
         "name": {
@@ -1271,7 +1341,8 @@ export const courses = [
         },
         "stay": 60,
         "lat": 33.24223,
-        "lng": 126.60938
+        "lng": 126.60938,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202112/03/a6c1a296-bf3b-4fd9-8c21-87a7c94df8f1.webp"
       },
       {
         "name": {
@@ -1285,7 +1356,8 @@ export const courses = [
         },
         "stay": 50,
         "lat": 33.23927,
-        "lng": 126.60689
+        "lng": 126.60689,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201907/17/3dfdaafa-6623-4a49-915e-a7e4f7c659fe.webp"
       },
       {
         "name": {
@@ -1299,7 +1371,8 @@ export const courses = [
         },
         "stay": 60,
         "lat": 33.2443,
-        "lng": 126.56905
+        "lng": 126.56905,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202111/23/e3f609dd-45af-45c0-be0c-4b49739854c4.webp"
       },
       {
         "name": {
@@ -1313,7 +1386,8 @@ export const courses = [
         },
         "stay": 40,
         "lat": 33.24741,
-        "lng": 126.55873
+        "lng": 126.55873,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202401/17/f1be063a-474d-4d71-b640-958795e09909.webp"
       }
     ]
   },
@@ -1349,7 +1423,8 @@ export const courses = [
         },
         "stay": 40,
         "lat": 33.24741,
-        "lng": 126.55873
+        "lng": 126.55873,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202401/17/f1be063a-474d-4d71-b640-958795e09909.webp"
       },
       {
         "name": {
@@ -1363,7 +1438,8 @@ export const courses = [
         },
         "stay": 60,
         "lat": 33.24006,
-        "lng": 126.54573
+        "lng": 126.54573,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202110/26/364e4579-cc5f-4e38-a520-36cde0e0ef17.webp"
       },
       {
         "name": {
@@ -1377,7 +1453,8 @@ export const courses = [
         },
         "stay": 50,
         "lat": 33.23998,
-        "lng": 126.53188
+        "lng": 126.53188,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/ba52007b-1f22-497d-955e-85bb891d937e.webp"
       },
       {
         "name": {
@@ -1391,7 +1468,8 @@ export const courses = [
         },
         "stay": 50,
         "lat": 33.23777,
-        "lng": 126.51579
+        "lng": 126.51579,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202111/15/10f67d40-11e4-42a0-b8ef-4a5bcc384a0b.webp"
       },
       {
         "name": {
@@ -1405,7 +1483,8 @@ export const courses = [
         },
         "stay": 40,
         "lat": 33.24682,
-        "lng": 126.5082
+        "lng": 126.5082,
+        "photo": "https://tong.visitkorea.or.kr/cms/resource/01/3549901_image3_1.jpg"
       }
     ]
   },
@@ -1441,7 +1520,8 @@ export const courses = [
         },
         "stay": 35,
         "lat": 33.52443,
-        "lng": 126.86271
+        "lng": 126.86271,
+        "photo": "/course-photos/olle21-hado-start.jpg"
       },
       {
         "name": {
@@ -1455,7 +1535,8 @@ export const courses = [
         },
         "stay": 55,
         "lat": 33.5183,
-        "lng": 126.9017
+        "lng": 126.9017,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202407/23/1b0be13e-4828-4c77-a104-0116943f3cb3.webp"
       },
       {
         "name": {
@@ -1469,7 +1550,8 @@ export const courses = [
         },
         "stay": 70,
         "lat": 33.48953,
-        "lng": 126.87794
+        "lng": 126.87794,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/186b6f0a-edf8-4601-97b3-9836114dca5c.webp"
       },
       {
         "name": {
@@ -1483,7 +1565,8 @@ export const courses = [
         },
         "stay": 55,
         "lat": 33.49788,
-        "lng": 126.89809
+        "lng": 126.89809,
+        "photo": "/course-photos/olle21-jongdal-village.jpg"
       },
       {
         "name": {
@@ -1497,7 +1580,8 @@ export const courses = [
         },
         "stay": 25,
         "lat": 33.51125,
-        "lng": 126.89887
+        "lng": 126.89887,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/616136b5-3560-42f5-bd9f-4cd449cdf6cd.webp"
       }
     ]
   },
@@ -1527,7 +1611,8 @@ export const courses = [
         "time": "10:00~10:50",
         "stay": 50,
         "lat": 33.49619,
-        "lng": 126.45595
+        "lng": 126.45595,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201808/08/fa5051e7-6840-4257-b2ab-50a035045352.webp"
       },
       {
         "name": {
@@ -1543,7 +1628,8 @@ export const courses = [
         "time": "11:00~11:50",
         "stay": 50,
         "lat": 33.50714,
-        "lng": 126.46848
+        "lng": 126.46848,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202410/16/63992138-b676-48cb-bde4-60c7279af0a0.webp"
       },
       {
         "name": {
@@ -1559,7 +1645,8 @@ export const courses = [
         "time": "12:00~13:00",
         "stay": 60,
         "lat": 33.51496,
-        "lng": 126.51169
+        "lng": 126.51169,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/39fa654e-5805-4d29-9dfc-e8950f29292a.webp"
       },
       {
         "name": {
@@ -1575,7 +1662,8 @@ export const courses = [
         "time": "13:10~14:10",
         "stay": 60,
         "lat": 33.51149,
-        "lng": 126.52009
+        "lng": 126.52009,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202110/22/a2f878cb-65ac-4ed8-ae18-c8850c45471a.webp"
       },
       {
         "name": {
@@ -1591,7 +1679,8 @@ export const courses = [
         "time": "14:20~15:10",
         "stay": 50,
         "lat": 33.5141,
-        "lng": 126.52193
+        "lng": 126.52193,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202111/17/500ec013-b883-4baf-ae6e-cd9e55d2a0be.webp"
       },
       {
         "name": {
@@ -1607,7 +1696,8 @@ export const courses = [
         "time": "15:20~16:10",
         "stay": 50,
         "lat": 33.49858,
-        "lng": 126.52876
+        "lng": 126.52876,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/cb0765e2-e881-4172-89b7-d1d0b3d19059.webp"
       },
       {
         "name": {
@@ -1623,7 +1713,8 @@ export const courses = [
         "time": "16:20~17:05",
         "stay": 45,
         "lat": 33.5116,
-        "lng": 126.52602
+        "lng": 126.52602,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202603/16/e7f789c8-82eb-4131-bb49-c51d6f3f943b.webp"
       },
       {
         "name": {
@@ -1639,7 +1730,8 @@ export const courses = [
         "time": "17:10~18:00",
         "stay": 50,
         "lat": 33.51626,
-        "lng": 126.52756
+        "lng": 126.52756,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202111/15/d07183e6-13b5-4fa7-b19b-67c682ca31e1.webp"
       }
     ]
   },
@@ -1667,7 +1759,8 @@ export const courses = [
         },
         "stay": 60,
         "lat": 33.40928,
-        "lng": 126.25884
+        "lng": 126.25884,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202203/11/daa7e2fc-971e-43b8-865a-1fe943d1aad4.webp"
       },
       {
         "name": {
@@ -1682,7 +1775,8 @@ export const courses = [
         },
         "stay": 10,
         "lat": 33.40706,
-        "lng": 126.26557
+        "lng": 126.26557,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201903/25/37f2db4e-ea74-4c84-8146-f63471ae242d.webp"
       },
       {
         "name": {
@@ -1697,7 +1791,8 @@ export const courses = [
         },
         "stay": 60,
         "lat": 33.39248,
-        "lng": 126.23899
+        "lng": 126.23899,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202408/27/6b6dc9c4-5466-493e-98e5-580dbf18eefc.webp"
       }
     ]
   },
@@ -1726,7 +1821,8 @@ export const courses = [
         },
         "stay": 30,
         "lat": 33.32723,
-        "lng": 126.8381
+        "lng": 126.8381,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202110/29/75201e85-e5f0-498a-986a-043dac98d1fb.webp"
       },
       {
         "name": {
@@ -1739,7 +1835,10 @@ export const courses = [
           "mode": "car",
           "minutes": 25
         },
-        "stay": 20
+        "stay": 20,
+        "photo": "/course-photos/drive-tosan-port.jpg",
+        "lat": 33.30385,
+        "lng": 126.78916
       },
       {
         "name": {
@@ -1754,7 +1853,8 @@ export const courses = [
         },
         "stay": 50,
         "lat": 33.27338,
-        "lng": 126.70375
+        "lng": 126.70375,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/d6c66fd7-a08b-45c8-bf7f-1ac90c994599.webp"
       },
       {
         "name": {
@@ -1769,7 +1869,8 @@ export const courses = [
         },
         "stay": 35,
         "lat": 33.27128,
-        "lng": 126.66238
+        "lng": 126.66238,
+        "photo": "https://tong.visitkorea.or.kr/cms/resource/57/3390157_image3_1.jpg"
       },
       {
         "name": {
@@ -1784,7 +1885,8 @@ export const courses = [
         },
         "stay": 30,
         "lat": 33.26769,
-        "lng": 126.646
+        "lng": 126.646,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202111/19/598a9a25-3662-4b21-a96e-43642396652b.webp"
       },
       {
         "name": {
@@ -1799,7 +1901,8 @@ export const courses = [
         },
         "stay": 45,
         "lat": 33.27091,
-        "lng": 126.65848
+        "lng": 126.65848,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202611/17/c717bf46-4fe3-4674-ab18-cb15d5add837.webp"
       }
     ]
   },
@@ -1835,7 +1938,8 @@ export const courses = [
         },
         "stay": 30,
         "lat": 33.2371,
-        "lng": 126.36139
+        "lng": 126.36139,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/4b2a8f02-7a35-4f66-be24-56ea60c4c8f1.webp"
       },
       {
         "name": {
@@ -1849,7 +1953,8 @@ export const courses = [
         },
         "stay": 80,
         "lat": 33.25162,
-        "lng": 126.36819
+        "lng": 126.36819,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202111/04/30844d88-66cc-4749-a0ba-34a8afd58c63.webp"
       },
       {
         "name": {
@@ -1863,7 +1968,8 @@ export const courses = [
         },
         "stay": 80,
         "lat": 33.25844,
-        "lng": 126.35298
+        "lng": 126.35298,
+        "photo": "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202410/17/bee4b88c-cdf6-41e1-b9fa-390036de6843.webp"
       },
       {
         "name": {
@@ -1877,7 +1983,8 @@ export const courses = [
         },
         "stay": 35,
         "lat": 33.25166,
-        "lng": 126.3438
+        "lng": 126.3438,
+        "photo": "/course-photos/olle9-hwasun-road.jpg"
       },
       {
         "name": {
@@ -1891,7 +1998,8 @@ export const courses = [
         },
         "stay": 15,
         "lat": 33.23942,
-        "lng": 126.33606
+        "lng": 126.33606,
+        "photo": "/course-photos/olle9-hwasun-end.jpg"
       }
     ]
   }

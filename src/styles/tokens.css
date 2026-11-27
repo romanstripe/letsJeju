@@ -13,6 +13,10 @@
   --accent: #f28c28;
   --teal: #4fb3bf;
   --on-accent: #121517;
+  /* 사진이나 지도 위의 어두운 판과 그 위의 글자, 카드 그림자 */
+  --scrim: rgba(10, 14, 16, 0.86);
+  --on-scrim: #f2f0eb;
+  --shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
   /* QR 은 밝기와 상관없이 흰 바탕에 검은 글자 */
   --qr-bg: #ffffff;
   --qr-ink: #121517;
@@ -34,6 +38,9 @@
   --accent: #0a6ead;
   --teal: #0e7c86;
   --on-accent: #ffffff;
+  --scrim: rgba(15, 42, 58, 0.92);
+  --on-scrim: #ffffff;
+  --shadow: 0 6px 18px rgba(15, 42, 58, 0.08);
   --pin-fill: var(--card);
   --pin-ring: var(--text);
 }

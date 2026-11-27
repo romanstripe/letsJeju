@@ -1,7 +1,9 @@
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import BrowseMap from '../components/BrowseMap.jsx';
 import EventDetail from '../components/EventDetail.jsx';
+import Icon from '../components/Icon.jsx';
 import PlacePanel from '../components/PlacePanel.jsx';
+import Thumb, { isWholePhoto } from '../components/Thumb.jsx';
 import { NEARBY_MAP_LEVEL } from '../config.js';
 import { browseButtons, DEFAULT_BUTTON } from '../data/browseButtons.js';
 import { formatPeriod, rangeEnd, todayInKorea, useCurrentEvents } from '../data/events.js';
@@ -62,23 +64,31 @@ function arrange(items, view, here) {
   return { list: [...inView, ...rest], visible: inView.length };
 }
 
-function Card({ item, number, active, onOpen }) {
+function Card({ item, number, active, onOpen, driveLabel }) {
   const Box = item.open ? 'button' : 'div';
   const press = item.open ? { type: 'button', onClick: onOpen } : {};
   return (
     <Box className={active ? 'browse-card is-active' : 'browse-card'} {...press}>
-      <span className="browse-photo">
-        {item.photo && <img className={item.credit ? 'is-whole' : undefined} src={item.photo} alt="" />}
-        {item.badge && <span className="browse-badge">{item.badge}</span>}
+      <Thumb photo={item.photo} className="browse-photo">
         {number && <span className="browse-number">{number}</span>}
-        {item.photo && item.credit && <span className="browse-credit">{item.credit}</span>}
-      </span>
+        {item.badge && <span className="browse-badge">{item.badge}</span>}
+        {item.drive && (
+          <span className="browse-drive">
+            <Icon name="car" size={16} />
+            <span className="sr-only">{driveLabel}</span>
+            {item.drive}
+          </span>
+        )}
+        {isWholePhoto(item.photo) && <span className="browse-credit">{item.credit}</span>}
+      </Thumb>
       <span className="browse-text">
         <span className="browse-name" lang={item.nameLang}>
           {item.name}
         </span>
-        <span className="browse-meta">{item.meta}</span>
-        {item.tags && <span className="browse-tags">{item.tags.join('  ')}</span>}
+        <span className="browse-meta">
+          {item.meta}
+          {item.tags?.length > 0 && <span className="browse-tags">{item.tags.join(' ')}</span>}
+        </span>
       </span>
     </Box>
   );
@@ -122,7 +132,8 @@ export default function BrowseScreen({ lang, t, theme }) {
             lng: place.lng,
             photo: place.photo,
             credit: place.fromTourApi ? t.events.photoCredit : null,
-            meta: [b.drive, place.region.at(-1)].filter(Boolean).join(' · '),
+            drive: b.drive,
+            meta: place.region.at(-1),
             tags: hashtags(place, t),
             open: { type: 'place', data: place },
           };
@@ -196,9 +207,16 @@ export default function BrowseScreen({ lang, t, theme }) {
       number: index + 1,
       lat: i.lat,
       lng: i.lng,
+      photo: i.photo,
       active: i.id === activeId,
     }));
   }, [shown, selected]);
+
+  // 이번 쪽에 없는 나머지 곳은 지도에 숫자 묶음으로
+  const others = useMemo(() => {
+    const onPage = new Set(shown.map((i) => i.id));
+    return list.slice(0, visible).filter((i) => !onPage.has(i.id) && i.lat && i.lng);
+  }, [list, visible, shown]);
 
   // 지도를 움직이면 첫 쪽부터 다시
   const handleView = useCallback((next) => {
@@ -217,8 +235,9 @@ export default function BrowseScreen({ lang, t, theme }) {
   if (view && first < visible) {
     order = (view.moved ? b.order : b.orderHere)
       .replace('{from}', first + 1)
-      .replace('{to}', Math.min(first + PAGE_SIZE, visible));
-  } else if (view && shown.length > 0 && shown.some((i) => i.open)) {
+      .replace('{to}', Math.min(first + PAGE_SIZE, visible))
+      .replace('{total}', visible.toLocaleString());
+  } else if (view && shown.some((i) => i.open)) {
     order = b.noLocation;
   }
 
@@ -226,18 +245,12 @@ export default function BrowseScreen({ lang, t, theme }) {
 
   return (
     <div className="browse">
-      <div className="filters">
+      <div className="tabs">
         {browseButtons.map((ids, index) => (
           <Fragment key={ids.join()}>
-            {index > 0 && <span className="filter-divider" />}
+            {index > 0 && <span className="tab-divider" />}
             {ids.map((id) => (
-              <button
-                key={id}
-                type="button"
-                className="filter-button"
-                aria-pressed={button === id}
-                onClick={() => choose(id)}
-              >
+              <button key={id} type="button" className="tab" aria-pressed={button === id} onClick={() => choose(id)}>
                 {label(id)}
               </button>
             ))}
@@ -248,6 +261,7 @@ export default function BrowseScreen({ lang, t, theme }) {
       <section className="card map-area">
         <BrowseMap
           pins={pins}
+          others={others}
           me={here}
           level={NEARBY_MAP_LEVEL}
           onPick={handlePick}
@@ -255,7 +269,6 @@ export default function BrowseScreen({ lang, t, theme }) {
           theme={theme}
           errorText={t.map.mapError}
         />
-        <p className="legend-chip map-hint">{b.hint}</p>
       </section>
 
       {selected?.open.type === 'place' ? (
@@ -279,30 +292,36 @@ export default function BrowseScreen({ lang, t, theme }) {
               const pin = pins.find((p) => p.id === item.id);
               return (
                 <li key={item.id}>
-                  <Card item={item} number={pin?.number} active={pin?.active} onOpen={() => setSelected(item)} />
+                  <Card
+                    item={item}
+                    number={pin?.number}
+                    active={pin?.active}
+                    driveLabel={t.course.modes.car}
+                    onOpen={() => setSelected(item)}
+                  />
                 </li>
               );
             })}
           </ul>
           <div className="browse-pager">
-            <p className="browse-summary">
-              {[view && items.some((i) => i.lat) && b.visible.replace('{n}', visible.toLocaleString()), order].filter(Boolean).join(' · ')}
-            </p>
+            <p className="browse-summary">{order}</p>
             <button
               type="button"
-              className="pill-button"
+              className="page-button"
+              aria-label={b.prev}
               disabled={current === 0}
               onClick={() => setPage(current - 1)}
             >
-              {b.prev}
+              ‹
             </button>
             <button
               type="button"
-              className="pill-button pill-primary"
+              className="page-button is-primary"
+              aria-label={b.next}
               disabled={current >= pageCount - 1}
               onClick={() => setPage(current + 1)}
             >
-              {b.next}
+              ›
             </button>
           </div>
         </div>

@@ -96,13 +96,13 @@ export default function App() {
           <ScreenHeader
             title={title}
             highlight={tab === 'here' ? t.here.following : undefined}
-            subtitle={t.subtitle[tab]}
+            subtitle={t.subtitle[tab]} // "지금 여기"와 "오늘 기록"에만 있다
             extra={passengerButton}
             {...headerProps}
           />
           <main className="content">
             {tab === 'here' ? (
-              <HereScreen t={t} theme={theme} onBrowse={() => setTab('browse')} />
+              <HereScreen t={t} theme={theme} />
             ) : tab === 'course' ? (
               <CourseScreen lang={lang} t={t} theme={theme} />
             ) : tab === 'browse' ? (

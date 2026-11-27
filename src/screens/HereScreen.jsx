@@ -1,21 +1,30 @@
-import MapView from '../components/MapView.jsx';
+import BrowseMap from '../components/BrowseMap.jsx';
+import Icon from '../components/Icon.jsx';
 import NarrationCard from '../components/NarrationCard.jsx';
+import Thumb from '../components/Thumb.jsx';
+import { NEARBY_MAP_LEVEL } from '../config.js';
+import { useCurrentLocation } from '../location.js';
 
-// 코스 데이터와 현재 위치는 아직 없어서 지도만 보여주고, 나머지는 [ ] 자리 표시
-const NO_PLACES = [];
+// 코스 따라가기는 아직 없어서 지도에는 현재 위치만, 나머지는 [ ] 자리 표시
+const NO_PINS = [];
 const noop = () => {};
 const NEXT = [1, 2];
 
-export default function HereScreen({ t, theme, onBrowse }) {
+export default function HereScreen({ t, theme }) {
   const h = t.here;
+  const me = useCurrentLocation();
   return (
     <div className="here">
       <section className="card map-area">
-        <MapView places={NO_PLACES} selected={null} onSelect={noop} theme={theme} errorText={t.map.mapError} />
-        <p className="legend-chip here-hint">
-          <span className="legend-dot" />
-          {h.hint}
-        </p>
+        <BrowseMap
+          pins={NO_PINS}
+          me={me}
+          level={NEARBY_MAP_LEVEL}
+          onPick={noop}
+          onView={noop}
+          theme={theme}
+          errorText={t.map.mapError}
+        />
       </section>
 
       <div className="here-side">
@@ -25,15 +34,19 @@ export default function HereScreen({ t, theme, onBrowse }) {
           <ul className="next-list">
             {NEXT.map((id) => (
               <li key={id} className="next-row">
-                <span className="next-time">{h.minutes}</span>
-                <span className="next-name">{h.nextPlace}</span>
-                <span className="next-status">{h.ready}</span>
+                <Thumb className="thumb-large" />
+                <span className="next-text">
+                  <span className="next-name">{h.nextPlace}</span>
+                  <span className="next-status">{h.ready}</span>
+                </span>
+                <span className="drive-time">
+                  <Icon name="car" size={16} />
+                  <span className="sr-only">{t.course.modes.car}</span>
+                  {h.minutes}
+                </span>
               </li>
             ))}
           </ul>
-          <button type="button" className="next-more" onClick={onBrowse}>
-            {h.more} →
-          </button>
         </section>
       </div>
     </div>

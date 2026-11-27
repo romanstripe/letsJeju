@@ -24,7 +24,7 @@ function Side({ who, lang, other, label, state, listening, onMic }) {
   return (
     <section className={`card talk talk-${who}`}>
       <p className="talk-label" lang={lang}>
-        {label} · {messages[lang].nativeName}
+        {label} ({messages[lang].nativeName})
       </p>
       <div className="talk-body" aria-live="polite">
         {state.original ? (

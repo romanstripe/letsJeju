@@ -39,7 +39,7 @@ export default function PlacePanel({ place, t, onClose }) {
         )}
         <p className="panel-meta">
           {m.categories[place.category]}
-          {place.region.length > 0 && <span lang="ko"> · {place.region.join(' · ')}</span>}
+          {place.region.length > 0 && <span lang="ko">, {place.region.join(' ')}</span>}
         </p>
         <h2 className="panel-title" lang="ko">
           {place.title}

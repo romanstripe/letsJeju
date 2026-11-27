@@ -10,7 +10,7 @@ export default function LanguageScreen({ current, onChoose }) {
       <p className="language-subtitle">
         {others.map((code, index) => (
           <span key={code}>
-            {index > 0 && ' · '}
+            {index > 0 && ' / '}
             <span lang={code}>{messages[code].language.title}</span>
           </span>
         ))}

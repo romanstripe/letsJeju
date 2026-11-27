@@ -6,13 +6,15 @@ export default function NarrationCard({ t }) {
   return (
     <section className="card narration">
       <div className="narration-photo">
-        <span className="narration-badge">{h.badge}</span>
+        <span className="narration-badge">
+          <span className="narration-dot" />
+          {h.badge}
+        </span>
       </div>
       <div className="narration-body">
         <div>
-          <p className="event-meta">{h.arrival}</p>
           <h2 className="narration-title">{h.name}</h2>
-          <p className="event-note">{h.description}</p>
+          <p className="narration-arrival">{h.arrival}</p>
         </div>
         <button type="button" className="play-button" aria-label={h.play} disabled>
           <Icon name="play" />
@@ -21,6 +23,9 @@ export default function NarrationCard({ t }) {
           <span>[0:00]</span>
           <span className="progress-track" />
           <span>[0:00]</span>
+          <button type="button" className="more-audio" disabled>
+            {h.moreAudio}
+          </button>
         </div>
       </div>
     </section>

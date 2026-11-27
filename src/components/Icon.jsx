@@ -60,6 +60,7 @@ const PATHS = {
     </>
   ),
   ferry: <path d="M5 13V8h14v5M12 8V4M3 13l9-2 9 2-3 6H6zM3 21c2 1 4 1 6 0 2 1 4 1 6 0 2 1 4 1 6 0" />,
+  close: <path d="M6 6l12 12M18 6L6 18" />,
   weather: (
     <>
       <circle cx="8" cy="8" r="3" />
